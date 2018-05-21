@@ -44,7 +44,7 @@ namespace argos {
 	class EpuckDAO {
 		public:
 
-			~EpuckDAO();
+			virtual ~EpuckDAO();
 
 			/*
 			 * Reset function.
@@ -99,7 +99,10 @@ namespace argos {
 			/*
 			 * Getter for the proximity input.
 			 */
-			virtual CCI_EPuckProximitySensor::TReadings GetProximityInput() const {};
+			virtual CCI_EPuckProximitySensor::TReadings GetProximityInput() const {
+				CCI_EPuckProximitySensor::TReadings emptyReadings;
+				return emptyReadings;
+			};
 
 			/*
 			 * Setter for the proximity input.
@@ -109,7 +112,10 @@ namespace argos {
 			/*
 			 * Getter for the light input.
 			 */
-			virtual CCI_EPuckLightSensor::TReadings GetLightInput() const {};
+			virtual CCI_EPuckLightSensor::TReadings GetLightInput() const {
+				CCI_EPuckLightSensor::TReadings emptyReadings;
+				return emptyReadings;
+			};
 
 			/*
 			 * Setter for the light input.
@@ -119,7 +125,10 @@ namespace argos {
 			/*
 			 * Getter for the ground input.
 			 */
-			virtual CCI_EPuckGroundSensor::SReadings GetGroundInput() {};
+			virtual CCI_EPuckGroundSensor::SReadings GetGroundInput() {
+				CCI_EPuckGroundSensor::SReadings emptyReadings;
+				return emptyReadings;
+			};
 
 			/*
 			 * Setter for the ground input.
@@ -129,12 +138,18 @@ namespace argos {
 			/*
 			 * Getter for the number of surrounding robots.
 			 */
-			virtual const UInt8& GetNumberNeighbors() const {};
+			virtual const UInt8 GetNumberNeighbors() const {
+				UInt8 unEmptyVariable = 0;
+				return unEmptyVariable;
+			};
 
 			/*
 			 * Getter for the range-and-bearing input.
 			 */
-			virtual std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() {};
+			virtual std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() {
+				std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> emptyReadings;
+				return emptyReadings;
+			};
 
 			/*
 			 * Setter for the number of surrounding robots.

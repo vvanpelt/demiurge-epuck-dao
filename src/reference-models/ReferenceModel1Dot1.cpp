@@ -116,7 +116,7 @@ void ReferenceModel1Dot1::SetGroundInput(CCI_EPuckGroundSensor::SReadings s_grou
 /****************************************/
 /****************************************/
 
-const UInt8& ReferenceModel1Dot1::GetNumberNeighbors() const {
+const UInt8 ReferenceModel1Dot1::GetNumberNeighbors() const {
   return m_unNumberNeighbors;
 }
 

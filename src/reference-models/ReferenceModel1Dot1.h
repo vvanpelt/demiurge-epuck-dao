@@ -56,7 +56,7 @@ class ReferenceModel1Dot1: public EpuckDAO {
     /*
      * Getter for the number of surrounding robots.
      */
-    const UInt8& GetNumberNeighbors() const;
+    const UInt8 GetNumberNeighbors() const;
 
     /*
      * Setter for the number of surrounding robots.
