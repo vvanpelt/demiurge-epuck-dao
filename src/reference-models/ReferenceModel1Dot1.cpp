@@ -130,6 +130,23 @@ void ReferenceModel1Dot1::SetNumberNeighbors(const UInt8& un_number_neighbors){
 /****************************************/
 /****************************************/
 
+CVector2 ReferenceModel1Dot1::GetNeighborsCenterOfMass() {
+  CCI_EPuckRangeAndBearingSensor::TPackets sRabPackets = m_pcRabMessageBuffer.GetMessages();
+  CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
+  CVector2 sRabVectorSum(0,CRadians::ZERO);
+
+  for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
+    if ((*it)->Data[0] != (UInt8) GetRobotIdentifier()) {
+      sRabVectorSum += CVector2((*it)->Range,(*it)->Bearing.SignedNormalize());
+    }
+  }
+  sRabVectorSum /= sRabPackets.size();
+  return sRabVectorSum;
+}
+
+/****************************************/
+/****************************************/
+
 std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> ReferenceModel1Dot1::GetRangeAndBearingMessages() {
   return m_pcRabMessageBuffer.GetMessages();
 }

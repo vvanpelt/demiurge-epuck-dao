@@ -144,11 +144,19 @@ namespace argos {
 			};
 
 			/*
-			 * Getter for the range-and-bearing input.
+			 * Getter for the range-and-bearing messages.
 			 */
 			virtual std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() {
 				std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> emptyReadings;
 				return emptyReadings;
+			};
+
+			/*
+			 * Getter for the center of mass of neighbors computed with RaB messages
+			 */
+			virtual CVector2 GetNeighborsCenterOfMass() {
+				CVector2 cEmptyVector;
+				return cEmptyVector;
 			};
 
 			/*

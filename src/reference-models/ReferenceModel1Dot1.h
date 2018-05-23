@@ -69,6 +69,11 @@ class ReferenceModel1Dot1: public EpuckDAO {
     std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() ;
 
     /*
+     * Getter for the center of mass of neighbors computed with RaB messages
+     */
+    CVector2 GetNeighborsCenterOfMass();
+
+    /*
      * Setter for the range-and-bearing input.
      */
     void SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets);
