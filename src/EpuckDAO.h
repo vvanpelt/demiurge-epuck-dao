@@ -162,9 +162,8 @@ namespace argos {
 			/*
 			 * Getter for the center of mass of neighbors computed with RaB messages
 			 */
-			virtual CVector2 GetNeighborsCenterOfMass() {
-				CVector2 cEmptyVector;
-				return cEmptyVector;
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {
+				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
 			/*
