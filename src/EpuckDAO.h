@@ -104,6 +104,10 @@ namespace argos {
 				return emptyReadings;
 			};
 
+			virtual CCI_EPuckProximitySensor::SReading GetProximityReading() {
+				return CCI_EPuckProximitySensor::SReading();
+			};
+
 			/*
 			 * Setter for the proximity input.
 			 */
@@ -115,6 +119,10 @@ namespace argos {
 			virtual CCI_EPuckLightSensor::TReadings GetLightInput() const {
 				CCI_EPuckLightSensor::TReadings emptyReadings;
 				return emptyReadings;
+			};
+
+			virtual CCI_EPuckLightSensor::SReading GetLightReading() {
+				return CCI_EPuckLightSensor::SReading();
 			};
 
 			/*

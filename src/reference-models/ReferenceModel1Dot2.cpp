@@ -1,9 +1,9 @@
-#include "ReferenceModel1Dot1.h"
+#include "ReferenceModel1Dot2.h"
 
 /****************************************/
 /****************************************/
 
-ReferenceModel1Dot1::ReferenceModel1Dot1() {
+ReferenceModel1Dot2::ReferenceModel1Dot2() {
   m_pcRng = CRandom::CreateRNG("argos");
   m_pcRabMessageBuffer = RabMessageBuffer();
   m_pcRabMessageBuffer.SetTimeLife(10);
@@ -15,12 +15,12 @@ ReferenceModel1Dot1::ReferenceModel1Dot1() {
 /****************************************/
 /****************************************/
 
-ReferenceModel1Dot1::~ReferenceModel1Dot1() {}
+ReferenceModel1Dot2::~ReferenceModel1Dot2() {}
 
 /****************************************/
 /****************************************/
 
-void ReferenceModel1Dot1::Reset() {
+void ReferenceModel1Dot2::Reset() {
   m_fLeftWheelVelocity = 0;
   m_fRightWheelVelocity = 0;
   m_pcRabMessageBuffer.Reset();
@@ -29,35 +29,55 @@ void ReferenceModel1Dot1::Reset() {
 /****************************************/
 /****************************************/
 
-CCI_EPuckProximitySensor::TReadings ReferenceModel1Dot1::GetProximityInput() const {
-  return m_sProximityInput;
+CCI_EPuckProximitySensor::SReading ReferenceModel1Dot2::GetProximityReading() {
+  CCI_EPuckProximitySensor::SReading cOutputReading;
+  CVector2 cSumProxi(0, CRadians::ZERO);
+  for (UInt8 i = 0; i < m_sProximityInput.size(); i++) {
+    cSumProxi += CVector2(m_sProximityInput[i].Value, m_sProximityInput[i].Angle.SignedNormalize());
+  }
+
+  cOutputReading.Value = (cSumProxi.Length() > 1) ? 1 : cSumProxi.Length();
+  cOutputReading.Angle = cSumProxi.Angle().SignedNormalize();
+
+  return cOutputReading;
 }
 
 /****************************************/
 /****************************************/
 
-void ReferenceModel1Dot1::SetProximityInput(CCI_EPuckProximitySensor::TReadings s_prox_input) {
+void ReferenceModel1Dot2::SetProximityInput(CCI_EPuckProximitySensor::TReadings s_prox_input) {
   m_sProximityInput = s_prox_input;
 }
 
 /****************************************/
 /****************************************/
 
-CCI_EPuckLightSensor::TReadings ReferenceModel1Dot1::GetLightInput() const{
-  return m_sLightInput;
+CCI_EPuckLightSensor::SReading ReferenceModel1Dot2::GetLightReading() {
+  CCI_EPuckLightSensor::SReading cOutputReading;
+  CVector2 cSumLight(0, CRadians::ZERO);
+	for (UInt8 i = 0; i < m_sLightInput.size(); i++) {
+    if (m_sLightInput[i].Value > 0.1) {
+      cOutputReading.Value = 1;
+    }
+		cSumLight += CVector2(m_sLightInput[i].Value, m_sLightInput[i].Angle.SignedNormalize());
+	}
+  if (cOutputReading.Value == 1) {
+    cOutputReading.Angle = cSumLight.Angle().SignedNormalize();
+  }
+  return cOutputReading;
 }
 
 /****************************************/
 /****************************************/
 
-void ReferenceModel1Dot1::SetLightInput(CCI_EPuckLightSensor::TReadings s_light_input) {
+void ReferenceModel1Dot2::SetLightInput(CCI_EPuckLightSensor::TReadings s_light_input) {
   m_sLightInput = s_light_input;
 }
 
 /****************************************/
 /****************************************/
 
-CCI_EPuckGroundSensor::SReadings ReferenceModel1Dot1::GetGroundInput() {
+CCI_EPuckGroundSensor::SReadings ReferenceModel1Dot2::GetGroundInput() {
   std::deque<CCI_EPuckGroundSensor::SReadings>::iterator it;
   UInt32 unBlackWhiteCounter[2] = {0,0};  //unBlackWhiteCounter[0] -> Black; unBlackWhiteCounter[1] -> White.
   float fBlackThreshold = 0.03;
@@ -106,7 +126,7 @@ CCI_EPuckGroundSensor::SReadings ReferenceModel1Dot1::GetGroundInput() {
 /****************************************/
 /****************************************/
 
-void ReferenceModel1Dot1::SetGroundInput(CCI_EPuckGroundSensor::SReadings s_ground_input) {
+void ReferenceModel1Dot2::SetGroundInput(CCI_EPuckGroundSensor::SReadings s_ground_input) {
   m_deqGroundInput.push_back(s_ground_input);
   if (m_deqGroundInput.size() > 5) {
     m_deqGroundInput.pop_front();
@@ -116,21 +136,21 @@ void ReferenceModel1Dot1::SetGroundInput(CCI_EPuckGroundSensor::SReadings s_grou
 /****************************************/
 /****************************************/
 
-const UInt8 ReferenceModel1Dot1::GetNumberNeighbors() const {
+const UInt8 ReferenceModel1Dot2::GetNumberNeighbors() const {
   return m_unNumberNeighbors;
 }
 
 /****************************************/
 /****************************************/
 
-void ReferenceModel1Dot1::SetNumberNeighbors(const UInt8& un_number_neighbors){
+void ReferenceModel1Dot2::SetNumberNeighbors(const UInt8& un_number_neighbors){
   m_unNumberNeighbors = un_number_neighbors;
 }
 
 /****************************************/
 /****************************************/
 
-CVector2 ReferenceModel1Dot1::GetNeighborsCenterOfMass() {
+CVector2 ReferenceModel1Dot2::GetNeighborsCenterOfMass() {
   CCI_EPuckRangeAndBearingSensor::TPackets sRabPackets = m_pcRabMessageBuffer.GetMessages();
   CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
   CVector2 sRabVectorSum(0,CRadians::ZERO);
@@ -147,14 +167,14 @@ CVector2 ReferenceModel1Dot1::GetNeighborsCenterOfMass() {
 /****************************************/
 /****************************************/
 
-std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> ReferenceModel1Dot1::GetRangeAndBearingMessages() {
+std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> ReferenceModel1Dot2::GetRangeAndBearingMessages() {
   return m_pcRabMessageBuffer.GetMessages();
 }
 
 /****************************************/
 /****************************************/
 
-void ReferenceModel1Dot1::SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets) {
+void ReferenceModel1Dot2::SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets) {
   std::map<UInt32, CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> mapRemainingMessages;
   std::map<UInt32, CCI_EPuckRangeAndBearingSensor::SReceivedPacket*>::iterator mapIt;
   CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;

@@ -8,6 +8,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
 		EpuckDAO.h
 		RabMessageBuffer.h
 	  reference-models/ReferenceModel1Dot1.h
+	  reference-models/ReferenceModel1Dot2.h
 	)
 
 	# Sources
@@ -15,6 +16,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
 		EpuckDAO.cpp
 		RabMessageBuffer.cpp
 	  reference-models/ReferenceModel1Dot1.cpp
+	  reference-models/ReferenceModel1Dot2.cpp
 	)
 else()
 endif(ARGOS_BUILD_FOR_SIMULATOR)
