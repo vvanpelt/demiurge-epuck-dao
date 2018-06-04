@@ -7,16 +7,16 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
 	set(HEADERS
 		EpuckDAO.h
 		RabMessageBuffer.h
-	  reference-models/ReferenceModel1Dot1.h
-	  reference-models/ReferenceModel1Dot2.h
+	  ReferenceModel1Dot1.h
+	  ReferenceModel1Dot2.h
 	)
 
 	# Sources
 	set(SOURCES
 		EpuckDAO.cpp
 		RabMessageBuffer.cpp
-	  reference-models/ReferenceModel1Dot1.cpp
-	  reference-models/ReferenceModel1Dot2.cpp
+	  ReferenceModel1Dot1.cpp
+	  ReferenceModel1Dot2.cpp
 	)
 else()
 endif(ARGOS_BUILD_FOR_SIMULATOR)
