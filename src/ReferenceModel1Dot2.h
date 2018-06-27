@@ -46,7 +46,7 @@ class ReferenceModel1Dot2: public EpuckDAO {
     /*
      * Getter for the ground input.
      */
-    CCI_EPuckGroundSensor::SReadings GetGroundInput();
+    Real GetGroundReading();
 
     /*
      * Setter for the ground input.

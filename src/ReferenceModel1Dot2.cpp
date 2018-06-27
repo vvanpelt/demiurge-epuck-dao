@@ -77,7 +77,7 @@ void ReferenceModel1Dot2::SetLightInput(CCI_EPuckLightSensor::TReadings s_light_
 /****************************************/
 /****************************************/
 
-CCI_EPuckGroundSensor::SReadings ReferenceModel1Dot2::GetGroundInput() {
+Real ReferenceModel1Dot2::GetGroundReading() {
   std::deque<CCI_EPuckGroundSensor::SReadings>::iterator it;
   UInt32 unBlackWhiteCounter[2] = {0,0};  //unBlackWhiteCounter[0] -> Black; unBlackWhiteCounter[1] -> White.
   float fBlackThreshold = 0.03;
@@ -103,24 +103,15 @@ CCI_EPuckGroundSensor::SReadings ReferenceModel1Dot2::GetGroundInput() {
     }
   }
 
-  CCI_EPuckGroundSensor::SReadings readings;
   if (unBlackWhiteCounter[0] > 10) {
-    readings.Left = 0;
-    readings.Center = 0;
-    readings.Right = 0;
+    return 0.0f;
   }
   else if (unBlackWhiteCounter[1] > 10) {
-    readings.Left = 1;
-    readings.Center = 1;
-    readings.Right = 1;
+    return 1.0f;
   }
   else {
-    readings.Left = 0.5;
-    readings.Center = 0.5;
-    readings.Right = 0.5;
+    return 0.5f;
   }
-
-  return readings;
 }
 
 /****************************************/

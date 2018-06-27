@@ -99,12 +99,12 @@ namespace argos {
 			/*
 			 * Getter for the proximity input.
 			 */
-			virtual CCI_EPuckProximitySensor::TReadings GetProximityInput() const {
+			virtual CCI_EPuckProximitySensor::TReadings GetProximityInput() const {			// RM 1.1
 				CCI_EPuckProximitySensor::TReadings emptyReadings;
 				return emptyReadings;
 			};
 
-			virtual CCI_EPuckProximitySensor::SReading GetProximityReading() {
+			virtual CCI_EPuckProximitySensor::SReading GetProximityReading() {					// RM 1.2
 				return CCI_EPuckProximitySensor::SReading();
 			};
 
@@ -116,12 +116,12 @@ namespace argos {
 			/*
 			 * Getter for the light input.
 			 */
-			virtual CCI_EPuckLightSensor::TReadings GetLightInput() const {
+			virtual CCI_EPuckLightSensor::TReadings GetLightInput() const { 		// RM 1.1
 				CCI_EPuckLightSensor::TReadings emptyReadings;
 				return emptyReadings;
 			};
 
-			virtual CCI_EPuckLightSensor::SReading GetLightReading() {
+			virtual CCI_EPuckLightSensor::SReading GetLightReading() {					// RM 1.2
 				return CCI_EPuckLightSensor::SReading();
 			};
 
@@ -133,9 +133,13 @@ namespace argos {
 			/*
 			 * Getter for the ground input.
 			 */
-			virtual CCI_EPuckGroundSensor::SReadings GetGroundInput() {
+			virtual CCI_EPuckGroundSensor::SReadings GetGroundInput() {    // RM 1.1
 				CCI_EPuckGroundSensor::SReadings emptyReadings;
 				return emptyReadings;
+			};
+
+			virtual Real GetGroundReading() {																 // RM 1.2
+				return 0.0f;
 			};
 
 			/*
@@ -162,7 +166,7 @@ namespace argos {
 			/*
 			 * Getter for the center of mass of neighbors computed with RaB messages
 			 */
-			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {			// RM 1.2
 				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
