@@ -56,7 +56,7 @@ CCI_EPuckLightSensor::SReading ReferenceModel1Dot2::GetLightReading() {
   CCI_EPuckLightSensor::SReading cOutputReading;
   CVector2 cSumLight(0, CRadians::ZERO);
 	for (UInt8 i = 0; i < m_sLightInput.size(); i++) {
-    if (m_sLightInput[i].Value > 0.1) {
+    if (m_sLightInput[i].Value > 0.2) {
       cOutputReading.Value = 1;
     }
 		cSumLight += CVector2(m_sLightInput[i].Value, m_sLightInput[i].Angle.SignedNormalize());
@@ -141,19 +141,16 @@ void ReferenceModel1Dot2::SetNumberNeighbors(const UInt8& un_number_neighbors){
 /****************************************/
 /****************************************/
 
-CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel1Dot2::GetNeighborsCenterOfMass() {
+CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel1Dot2::GetAttractionVectorToNeighbors(Real f_alpha_parameter) {
   CCI_EPuckRangeAndBearingSensor::TPackets sRabPackets = m_pcRabMessageBuffer.GetMessages();
   CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
   CVector2 sRabVectorSum(0,CRadians::ZERO);
 
-  UInt32 unNbrPackets = 0;
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
-    if ((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) {
-      unNbrPackets += 1;
-      sRabVectorSum += CVector2((*it)->Range/100,(*it)->Bearing.SignedNormalize());
+    if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f)) {
+      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
     }
   }
-  sRabVectorSum /= unNbrPackets;
 
   CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
   cRaBReading.Range = sRabVectorSum.Length();

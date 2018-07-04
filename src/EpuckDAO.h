@@ -164,9 +164,9 @@ namespace argos {
 			};
 
 			/*
-			 * Getter for the center of mass of neighbors computed with RaB messages
+			 * Getter for attraction force to the neighbors computed with RaB messages
 			 */
-			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {			// RM 1.2
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter) {			// RM 1.2
 				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
