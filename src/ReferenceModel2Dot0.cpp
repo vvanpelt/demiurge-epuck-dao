@@ -168,7 +168,7 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot0::GetAttracti
   CVector2 sRabVectorSum(0,CRadians::ZERO);
 
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
-    if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f) ((*it)->Data[1] == (UInt8) un_message) ) {
+    if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f) && ((*it)->Data[1] == (UInt8) un_message) ) {
       sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
     }
   }
@@ -221,7 +221,7 @@ void ReferenceModel2Dot0::SetRangeAndBearingMessageToSend(UInt8 un_message) {
 /****************************************/
 /****************************************/
 
-const UInt8& ReferenceModel2Dot0::GetMessageToSend() const {
+const UInt8 ReferenceModel2Dot0::GetMessageToSend() const {
     return m_unMessageToSend;
 }
 

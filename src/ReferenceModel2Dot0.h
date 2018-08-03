@@ -1,22 +1,22 @@
-#ifndef REFERENCE_MODEL_1_2_H
-#define REFERENCE_MODEL_1_2_H
+#ifndef REFERENCE_MODEL_2_0_H
+#define REFERENCE_MODEL_2_0_H
 
 #include "EpuckDAO.h"
 #include "RabMessageBuffer.h"
 
 using namespace argos;
 
-class ReferenceModel1Dot2: public EpuckDAO {
+class ReferenceModel2Dot0: public EpuckDAO {
   public:
     /*
      *  Class constructor.
      */
-    ReferenceModel1Dot2();
+    ReferenceModel2Dot0();
 
     /*
      * Class destructor.
      */
-    virtual ~ReferenceModel1Dot2();
+    virtual ~ReferenceModel2Dot0();
 
     /*
      * Reset function.
@@ -86,7 +86,7 @@ class ReferenceModel1Dot2: public EpuckDAO {
     /*
      * Getter for the message to send.
      */
-    const UInt8& GetMessageToSend() const;
+    const UInt8 GetMessageToSend() const;
 
     /*
      * Setter for the message to send with range and bearing
