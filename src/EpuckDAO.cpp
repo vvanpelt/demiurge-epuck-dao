@@ -62,4 +62,18 @@ namespace argos {
 	const Real& EpuckDAO::GetMaxVelocity() const{
 		return m_fMaxVelocity;
 	}
+
+    /****************************************/
+    /****************************************/
+
+    const Real& EpuckDAO::GetMaxOmega() const{
+        return m_fMaxOmega;
+    }
+
+    /****************************************/
+    /****************************************/
+
+    const Real& EpuckDAO::GetLengthEpuckAxis() const{
+        return m_fLengthEpuckAxis;
+    }
 }

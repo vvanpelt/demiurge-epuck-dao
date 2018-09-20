@@ -8,6 +8,8 @@ ReferenceModel1Dot2::ReferenceModel1Dot2() {
   m_pcRabMessageBuffer = RabMessageBuffer();
   m_pcRabMessageBuffer.SetTimeLife(10);
   m_fMaxVelocity = 12;
+  m_fMaxOmega = 0.3f*m_fMaxVelocity;  // 4.5 [r/s] max
+  m_fLengthEpuckAxis = 5.3f;          // [cm]
   m_fLeftWheelVelocity = 0;
   m_fRightWheelVelocity = 0;
 }

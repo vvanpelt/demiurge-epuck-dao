@@ -86,6 +86,16 @@ namespace argos {
 			 */
 			const Real& GetMaxVelocity() const;
 
+            /*
+             * Getter for the maximal rotacional velocity.
+             */
+            const Real& GetMaxOmega() const;
+
+            /*
+             * Getter for the length between wheels.
+             */
+            const Real& GetLengthEpuckAxis() const;
+
 			/*
 			 * Getter for the random number generetor.
 			 */
@@ -156,14 +166,6 @@ namespace argos {
 			};
 
 			/*
-			 * Getter for the message to send.
-			 */
-			virtual const UInt8 GetMessageToSend() const{
-				UInt8 unEmptyVariable = 0;
-				return unEmptyVariable;
-			};
-
-			/*
 			 * Getter for the range-and-bearing messages.
 			 */
 			virtual std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() {
@@ -171,25 +173,31 @@ namespace argos {
 				return emptyReadings;
 			};
 
-			/*
-			 * Getter for the number of messaging neighbors
-			 */
-			virtual UInt8 GetNumberMessagingNeighbors(UInt8 un_message) {
-				UInt8 unEmptyVariable = 0;
-				return unEmptyVariable;
-			};
+            /*
+             * Getter for the center of mass to the neighbors computed with RaB messages
+             */
+            virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {			// RM 1.1
+                return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+            };
+
+            /*
+             * Getter for the center of mass to the neighbors computed with the camera
+             */
+            virtual CCI_EPuckOmnidirectionalCameraSensor::SBlob GetNeighborsDirection() {			// RM 1.3
+                return CCI_EPuckOmnidirectionalCameraSensor::SBlob();
+            };
+
+            /*
+             * Getter for the center of mass to the neighbors computed with the camera
+             */
+            virtual CCI_EPuckOmnidirectionalCameraSensor::SBlob GetNeighborsCoesion(Real fGain, Real fTargetDistance, Real fExp) {			// RM 1.3
+                return CCI_EPuckOmnidirectionalCameraSensor::SBlob();
+            };
 
 			/*
 			 * Getter for attraction force to the neighbors computed with RaB messages
 			 */
 			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter) {			// RM 1.2
-				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
-			};
-
-			/*
-			 * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
-			 */
-			CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message) {
 				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
@@ -203,11 +211,18 @@ namespace argos {
 			 */
 			virtual void SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets) {};
 
-			/*
-			 * Setter for the message to send with range and bearing
-			 */
-			virtual void SetRangeAndBearingMessageToSend(UInt8 un_message) {};
+            /*
+             * Setter for the camera input.
+             */
+            virtual void SetCameraInput(CCI_EPuckOmnidirectionalCameraSensor::SReadings s_camera_input) {};
 
+            /*
+             * Getter for the camera input.
+             */
+            virtual CCI_EPuckOmnidirectionalCameraSensor::SReadings GetCameraInput() const {
+                CCI_EPuckOmnidirectionalCameraSensor::SReadings emptyReadings;
+                return emptyReadings;
+            };
 
 		protected:
 			/*
@@ -234,6 +249,16 @@ namespace argos {
 			 * Pointer to the random number generator.
 			 */
 			CRandom::CRNG* m_pcRng;
+
+            /*
+             * The maximal rotacional velocity.
+             */
+            Real m_fMaxOmega;
+
+            /*
+             * The Distance between wheels
+             */
+            Real m_fLengthEpuckAxis;
 
 	};
 }

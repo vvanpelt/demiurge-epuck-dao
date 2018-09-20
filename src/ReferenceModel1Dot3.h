@@ -1,22 +1,22 @@
-#ifndef REFERENCE_MODEL_2_0_H
-#define REFERENCE_MODEL_2_0_H
+#ifndef REFERENCE_MODEL_1_3_H
+#define REFERENCE_MODEL_1_3_H
 
 #include "EpuckDAO.h"
 #include "RabMessageBuffer.h"
 
 using namespace argos;
 
-class ReferenceModel2Dot0: public EpuckDAO {
+class ReferenceModel1Dot3: public EpuckDAO {
   public:
     /*
      *  Class constructor.
      */
-    ReferenceModel2Dot0();
+    ReferenceModel1Dot3();
 
     /*
      * Class destructor.
      */
-    virtual ~ReferenceModel2Dot0();
+    virtual ~ReferenceModel1Dot3();
 
     /*
      * Reset function.
@@ -69,14 +69,19 @@ class ReferenceModel2Dot0: public EpuckDAO {
     std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() ;
 
     /*
-     * Getter for the vector representing the attraction force to the neighbors computed with RaB messages
+     * Getter for the center of mass of neighbors computed with RaB messages
      */
-    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter);
+    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass();
 
     /*
-     * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
+     * Getter for the center of mass of neighbors computed with the camera
      */
-    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message);
+    CCI_EPuckOmnidirectionalCameraSensor::SBlob GetNeighborsDirection();
+
+    /*
+     * Getter for the center of mass of neighbors computed with the camera
+     */
+    CCI_EPuckOmnidirectionalCameraSensor::SBlob GetNeighborsCoesion(Real fGain, Real fTargetDistance, Real fExp);
 
     /*
      * Setter for the range-and-bearing input.
@@ -84,21 +89,26 @@ class ReferenceModel2Dot0: public EpuckDAO {
     void SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets);
 
     /*
-     * Getter for the message to send.
+     * Setter for the camera input.
      */
-    const UInt8 GetMessageToSend() const;
+    void SetCameraInput(CCI_EPuckOmnidirectionalCameraSensor::SReadings s_camera_input);
 
     /*
-     * Setter for the message to send with range and bearing
+     * Getter for the camera input.
      */
-    void SetRangeAndBearingMessageToSend(UInt8 un_message);
+    CCI_EPuckOmnidirectionalCameraSensor::SReadings GetCameraInput() const;
 
-    /*
-     * Getter for the number of messaging neighbors
-     */
-    UInt8 GetNumberMessagingNeighbors(UInt8 un_message);
 
   private:
+
+    /* Lenard-Jones potencial funtcion */
+    Real LJMagnitude(Real fDistance, Real fGain, Real fTargetDistance, Real fExp);
+
+    /*
+     * The camera sensors input.
+     */
+    CCI_EPuckOmnidirectionalCameraSensor::SReadings m_sCameraInput;
+
     /*
      * The proximity sensors input.
      */
@@ -128,10 +138,7 @@ class ReferenceModel2Dot0: public EpuckDAO {
      * Pointer to the range-and-bearing messages buffer.
      */
     RabMessageBuffer m_pcRabMessageBuffer;
-    /*
-     * Type of message to send.
-     */
-    UInt8 m_unMessageToSend;
+
 };
 
 #endif

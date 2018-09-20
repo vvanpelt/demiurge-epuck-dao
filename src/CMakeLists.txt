@@ -1,4 +1,9 @@
-if(ARGOS_BUILD_FOR_SIMULATOR)
+#
+# Set minimum required version
+#
+cmake_minimum_required(VERSION 2.8)
+
+#if(ARGOS_BUILD_FOR_SIMULATOR)
 	# Set up ARGoS compilation information
 	include_directories(${CMAKE_SOURCE_DIR} ${ARGOS_INCLUDE_DIRS})
 	link_directories(${ARGOS_LIBRARY_DIRS})
@@ -9,7 +14,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
 		RabMessageBuffer.h
 	  ReferenceModel1Dot1.h
 	  ReferenceModel1Dot2.h
-	  ReferenceModel2Dot0.h
+	  ReferenceModel1Dot3.h
 	)
 
 	# Sources
@@ -18,10 +23,10 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
 		RabMessageBuffer.cpp
 	  ReferenceModel1Dot1.cpp
 	  ReferenceModel1Dot2.cpp
-	  ReferenceModel2Dot0.cpp
+	  ReferenceModel1Dot3.cpp
 	)
-else()
-endif(ARGOS_BUILD_FOR_SIMULATOR)
+#else()
+#endif(ARGOS_BUILD_FOR_SIMULATOR)
 
 
 add_library(argos3_demiurge_epuck_dao SHARED ${HEADERS} ${SOURCES} )
