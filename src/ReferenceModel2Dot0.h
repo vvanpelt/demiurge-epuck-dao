@@ -98,6 +98,11 @@ class ReferenceModel2Dot0: public EpuckDAO {
      */
     UInt8 GetNumberMessagingNeighbors(UInt8 un_message);
 
+    /*
+     * Getter for the difference of number between the messages that the robot got
+     */
+    UInt8 GetDiffMessagingNeighbors();
+
   private:
     /*
      * The proximity sensors input.
