@@ -101,7 +101,7 @@ class ReferenceModel2Dot0: public EpuckDAO {
     /*
      * Getter for the difference of number between the messages that the robot got
      */
-    UInt8 GetDiffMessagingNeighbors();
+    SInt8 GetDiffMessagingNeighbors(UInt8 un_message, UInt8 un_message2);
 
   private:
     /*

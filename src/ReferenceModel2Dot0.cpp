@@ -251,13 +251,13 @@ UInt8 ReferenceModel2Dot0::GetNumberMessagingNeighbors(UInt8 un_message) {
 /****************************************/
 /****************************************/
 
-UInt8 ReferenceModel2Dot0::GetDiffMessagingNeighbors() {
+SInt8 ReferenceModel2Dot0::GetDiffMessagingNeighbors(UInt8 un_message, UInt8 un_message2) {
     CCI_EPuckRangeAndBearingSensor::TPackets sLastPackets = GetRangeAndBearingMessages();
     CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
     UInt8 FirstNumberMessagingNeighbors = 0;
     UInt8 SecondNumberMessagingNeighbors = 0;
-    UInt8 first_message = 10;
-    UInt8 sec_message = 160;
+    UInt8 first_message = un_message;
+    UInt8 sec_message = un_message2;
 
     for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
         if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&0xF0) == first_message || ((UInt8) ((*it)->Data[1])&0x0F) == first_message ) ) {
@@ -268,5 +268,5 @@ UInt8 ReferenceModel2Dot0::GetDiffMessagingNeighbors() {
         }
     }
 
-    return std::abs(SecondNumberMessagingNeighbors-FirstNumberMessagingNeighbors);
+    return (SecondNumberMessagingNeighbors-FirstNumberMessagingNeighbors);
 }

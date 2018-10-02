@@ -180,6 +180,14 @@ namespace argos {
 			};
 
 			/*
+			 * Getter for the difference of number between the messages that the robot got
+			 */
+			virtual SInt8 GetDiffMessagingNeighbors(UInt8 un_message, UInt8 un_message2) {
+				SInt8 unEmptyVariable = 0;
+				return unEmptyVariable;
+			};
+
+			/*
 			 * Getter for attraction force to the neighbors computed with RaB messages
 			 */
 			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter) {			// RM 1.2
