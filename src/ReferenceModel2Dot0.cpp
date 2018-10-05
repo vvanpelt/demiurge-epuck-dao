@@ -56,14 +56,14 @@ CCI_EPuckLightSensor::SReading ReferenceModel2Dot0::GetLightReading() {
   CCI_EPuckLightSensor::SReading cOutputReading;
   CVector2 cSumLight(0, CRadians::ZERO);
 	for (UInt8 i = 0; i < m_sLightInput.size(); i++) {
-    if (m_sLightInput[i].Value > 0.2) {
-      cOutputReading.Value = 1;
-    }
+    //if (m_sLightInput[i].Value > 0.1) {
+      cOutputReading.Value = m_sLightInput[i].Value;
+    //}
 		cSumLight += CVector2(m_sLightInput[i].Value, m_sLightInput[i].Angle.SignedNormalize());
 	}
-  if (cOutputReading.Value == 1) {
+  //if (cOutputReading.Value == 1) {
     cOutputReading.Angle = cSumLight.Angle().SignedNormalize();
-  }
+  //}
   return cOutputReading;
 }
 
