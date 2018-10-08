@@ -197,7 +197,7 @@ namespace argos {
 			/*
 			 * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
 			 */
-			CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message) {
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message) { //RM2.0
 				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
