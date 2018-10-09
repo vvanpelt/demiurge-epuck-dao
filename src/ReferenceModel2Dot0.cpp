@@ -255,19 +255,18 @@ UInt8 ReferenceModel2Dot0::GetNumberMessagingNeighbors(UInt8 un_message) {
 SInt8 ReferenceModel2Dot0::GetDiffMessagingNeighbors(UInt8 un_message, UInt8 un_message2) {
     CCI_EPuckRangeAndBearingSensor::TPackets sLastPackets = GetRangeAndBearingMessages();
     CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
-    UInt8 FirstNumberMessagingNeighbors = 0;
-    UInt8 SecondNumberMessagingNeighbors = 0;
-    UInt8 first_message = un_message;
-    UInt8 sec_message = un_message2;
+    SInt8 FirstNumberMessagingNeighbors = 0;
+    SInt8 SecondNumberMessagingNeighbors = 0;
+    SInt8 first_message = un_message;
+    SInt8 sec_message = un_message2;
 
     for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
         if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&0xF0) == first_message || ((UInt8) ((*it)->Data[1])&0x0F) == first_message ) ) {
             FirstNumberMessagingNeighbors += 1;
         }
-        else if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&0xF0) == sec_message || ((UInt8) ((*it)->Data[1])&0x0F) == sec_message ) ) {
+        if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&0xF0) == sec_message || ((UInt8) ((*it)->Data[1])&0x0F) == sec_message ) ) {
             SecondNumberMessagingNeighbors += 1;
         }
     }
-
     return (SecondNumberMessagingNeighbors-FirstNumberMessagingNeighbors);
 }
