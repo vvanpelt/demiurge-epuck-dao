@@ -110,7 +110,12 @@ Real ReferenceModel2Dot0::GetGroundReading() {
     return 1.0f;
   }
   else {
-    return 0.5f;
+    if (m_pcRng->Uniform(CRange<UInt32>(0,50)) == 0) {
+        return 0.0f;
+    }
+    else {
+        return 0.5f;
+    }
   }
 }
 
