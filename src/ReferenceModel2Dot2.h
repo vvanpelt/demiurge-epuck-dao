@@ -1,25 +1,25 @@
-#ifndef REFERENCE_MODEL_2_1_H
-#define REFERENCE_MODEL_2_1_H
+#ifndef REFERENCE_MODEL_2_2_H
+#define REFERENCE_MODEL_2_2_H
 
 #include "EpuckDAO.h"
 #include "RabMessageBuffer.h"
 
-// Ref model 2.1 is the same as ref model 1.1 except it can send messages
-// with gianduja1 (one message)
+// Ref model 2.2 is ref model 1.1 the original with the added capabilities
+// of gianduja2 meaning it features doubles messages.
 
 using namespace argos;
 
-class ReferenceModel2Dot1: public EpuckDAO {
+class ReferenceModel2Dot2: public EpuckDAO {
   public:
     /*
      *  Class constructor.
      */
-    ReferenceModel2Dot1();
+    ReferenceModel2Dot2();
 
     /*
      * Class destructor.
      */
-    virtual ~ReferenceModel2Dot1();
+    virtual ~ReferenceModel2Dot2();
 
     /*
      * Reset function.

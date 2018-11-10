@@ -1,25 +1,25 @@
-#ifndef REFERENCE_MODEL_2_1_H
-#define REFERENCE_MODEL_2_1_H
+#ifndef REFERENCE_MODEL_2_3_H
+#define REFERENCE_MODEL_2_3_H
 
 #include "EpuckDAO.h"
 #include "RabMessageBuffer.h"
 
-// Ref model 2.1 is the same as ref model 1.1 except it can send messages
-// with gianduja1 (one message)
+// Ref model 2.3 is the new one with less entry and more abstraction, like the 1.2
+// but the gianduja2 version (two messages)
 
 using namespace argos;
 
-class ReferenceModel2Dot1: public EpuckDAO {
+class ReferenceModel2Dot3: public EpuckDAO {
   public:
     /*
      *  Class constructor.
      */
-    ReferenceModel2Dot1();
+    ReferenceModel2Dot3();
 
     /*
      * Class destructor.
      */
-    virtual ~ReferenceModel2Dot1();
+    virtual ~ReferenceModel2Dot3();
 
     /*
      * Reset function.
@@ -27,9 +27,9 @@ class ReferenceModel2Dot1: public EpuckDAO {
     virtual void Reset();
 
     /*
-     * Getter for the proximity input.
+     * Getter for the proximity reading.
      */
-    CCI_EPuckProximitySensor::TReadings GetProximityInput() const;
+    CCI_EPuckProximitySensor::SReading GetProximityReading();
 
     /*
      * Setter for the proximity input.
@@ -37,9 +37,9 @@ class ReferenceModel2Dot1: public EpuckDAO {
     void SetProximityInput(CCI_EPuckProximitySensor::TReadings s_prox_input);
 
     /*
-     * Getter for the light input.
+     * Getter for the light reading.
      */
-    CCI_EPuckLightSensor::TReadings GetLightInput() const;
+    CCI_EPuckLightSensor::SReading GetLightReading();
 
     /*
      * Setter for the light input.
@@ -49,7 +49,7 @@ class ReferenceModel2Dot1: public EpuckDAO {
     /*
      * Getter for the ground input.
      */
-    CCI_EPuckGroundSensor::SReadings GetGroundInput();
+    Real GetGroundReading();
 
     /*
      * Setter for the ground input.
@@ -72,9 +72,14 @@ class ReferenceModel2Dot1: public EpuckDAO {
     std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() ;
 
     /*
-     * Getter for the center of mass of neighbors computed with RaB messages
+     * Getter for the vector representing the attraction force to the neighbors computed with RaB messages
      */
-    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass();
+    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter);
+
+    /*
+     * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
+     */
+    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message);
 
     /*
      * Setter for the range-and-bearing input.

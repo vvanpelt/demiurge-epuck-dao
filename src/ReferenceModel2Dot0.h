@@ -4,6 +4,9 @@
 #include "EpuckDAO.h"
 #include "RabMessageBuffer.h"
 
+// Ref model 2.0 is the new one with less entry and more abstraction, like the 1.2
+// but the gianduja1 version (one message)
+
 using namespace argos;
 
 class ReferenceModel2Dot0: public EpuckDAO {
