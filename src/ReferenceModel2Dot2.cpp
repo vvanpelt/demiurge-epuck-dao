@@ -136,6 +136,28 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot2::GetNeighbor
   CVector2 sRabVectorSum(0,CRadians::ZERO);
 
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
+    if ((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) {
+      sRabVectorSum += CVector2((*it)->Range,(*it)->Bearing.SignedNormalize());
+    }
+  }
+  sRabVectorSum /= sRabPackets.size();
+
+  CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
+  cRaBReading.Range = sRabVectorSum.Length();
+  cRaBReading.Bearing = sRabVectorSum.Angle().SignedNormalize();
+
+  return cRaBReading;
+}
+
+/****************************************/
+/****************************************/
+
+CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot2::GetMessagingNeighborsCenterOfMass(UInt8 un_message) {
+  CCI_EPuckRangeAndBearingSensor::TPackets sRabPackets = m_pcRabMessageBuffer.GetMessages();
+  CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
+  CVector2 sRabVectorSum(0,CRadians::ZERO);
+
+  for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
     if (((*it)->Data[0] != (UInt32) GetRobotIdentifier()) && ((*it)->Range > 0.0f) && (( (UInt8) ((*it)->Data[1])&0xF0) == un_message || ((UInt8) ((*it)->Data[1])&0x0F) == un_message ) ) {
       sRabVectorSum += CVector2((*it)->Range,(*it)->Bearing.SignedNormalize());
     }
