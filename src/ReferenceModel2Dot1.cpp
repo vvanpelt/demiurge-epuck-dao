@@ -152,6 +152,49 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot1::GetNeighbor
 /****************************************/
 /****************************************/
 
+CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot1::GetAttractionVectorToNeighbors(Real f_alpha_parameter) {
+  CCI_EPuckRangeAndBearingSensor::TPackets sRabPackets = m_pcRabMessageBuffer.GetMessages();
+  CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
+  CVector2 sRabVectorSum(0,CRadians::ZERO);
+
+  for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
+    if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f)) {
+      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
+    }
+  }
+
+  CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
+  cRaBReading.Range = sRabVectorSum.Length();
+  cRaBReading.Bearing = sRabVectorSum.Angle().SignedNormalize();
+
+  return cRaBReading;
+}
+
+/****************************************/
+/****************************************/
+
+CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot1::GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message) {
+  CCI_EPuckRangeAndBearingSensor::TPackets sRabPackets = m_pcRabMessageBuffer.GetMessages();
+  CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
+  CVector2 sRabVectorSum(0,CRadians::ZERO);
+
+  for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
+    if ( ((*it)->Data[0] != (UInt32) GetRobotIdentifier()) && ((*it)->Range > 0.0f) && ( (UInt8) ((*it)->Data[1]) == un_message) ) {
+      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
+      //sRabVectorSum += CVector2(f_alpha_parameter/((*it)->Range + 1),(*it)->Bearing.SignedNormalize());
+    }
+  }
+
+  CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
+  cRaBReading.Range = sRabVectorSum.Length();
+  cRaBReading.Bearing = sRabVectorSum.Angle().SignedNormalize();
+
+  return cRaBReading;
+}
+
+/****************************************/
+/****************************************/
+
 std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> ReferenceModel2Dot1::GetRangeAndBearingMessages() {
   return m_pcRabMessageBuffer.GetMessages();
 }

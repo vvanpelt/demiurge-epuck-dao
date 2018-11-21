@@ -202,6 +202,20 @@ namespace argos {
 			};
 
 			/*
+			 * Getter for the center of mass of neighbors computed with RaB messages
+			 */
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {
+				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			};
+
+			/*
+			 * Getter for the center of mass of messaging neighbors computed with RaB messages
+			 */
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetMessagingNeighborsCenterOfMass(UInt8 un_message) {
+				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			};
+
+			/*
 			 * Setter for the number of surrounding robots.
 			 */
 			virtual void SetNumberNeighbors(const UInt8& un_number_neighbors) {};
