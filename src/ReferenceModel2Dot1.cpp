@@ -163,12 +163,6 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot1::GetAttracti
     }
   }
 
-  Real len = sRabVectorSum.Length();
-  if(len != 0) {
-     sRabVectorSum.Normalize(); // now, sRabVectorSum.Length = 1
-     sRabVectorSum *= (2/(1+exp(-len)) - 1);
-  }
-
   CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
   cRaBReading.Range = sRabVectorSum.Length();
   cRaBReading.Bearing = sRabVectorSum.Angle().SignedNormalize();
@@ -188,12 +182,6 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot1::GetAttracti
     if ( ((*it)->Data[0] != (UInt32) GetRobotIdentifier()) && ((*it)->Range > 0.0f) && ( (UInt8) ((*it)->Data[1]) == un_message) ) {
       sRabVectorSum += CVector2((f_alpha_parameter / (Real) (1 + (*it)->Range)), (*it)->Bearing.SignedNormalize());
     }
-  }
-
-  Real len = sRabVectorSum.Length();
-  if(len != 0) {
-     sRabVectorSum.Normalize(); // now, sRabVectorSum.Length = 1
-     sRabVectorSum *= (2/(1+exp(-len)) - 1);
   }
 
   CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
