@@ -148,7 +148,8 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot0::GetAttracti
 
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
     if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f)) {
-      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
+      //sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
+      sRabVectorSum += CVector2(m_unAttractionParameter / ((*it)->Range + 1),(*it)->Bearing.SignedNormalize());
     }
   }
 
@@ -233,12 +234,6 @@ UInt8 ReferenceModel2Dot0::GetNumberMessagingNeighbors(UInt8 un_message) {
     CCI_EPuckRangeAndBearingSensor::TPackets sLastPackets = GetRangeAndBearingMessages();
     CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
     UInt8 unNumberMessagingNeighbors = 0;
-
-    // for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
-    //     if ((*it)->Data[1] != 0) {
-    //         LOG << "mess: "<< "id:" << (*it)->Data[0] << "data:" << (*it)->Data[1] << std::endl;
-    //     }
-    // }
 
     for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
         if ( ( (UInt8) (*it)->Data[0] != GetRobotIdentifier() ) && ( (UInt8) (*it)->Data[1] == un_message ) ) {

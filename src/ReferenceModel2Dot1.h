@@ -5,7 +5,7 @@
 #include "RabMessageBuffer.h"
 
 // Ref model 2.1 is the same as ref model 1.1 except it can send messages
-// with gianduja1 (one message)
+// with gianduja1 (one message) (use for evocom1.x)
 
 using namespace argos;
 

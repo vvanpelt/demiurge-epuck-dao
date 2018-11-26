@@ -5,7 +5,7 @@
 #include "RabMessageBuffer.h"
 
 // Ref model 2.2 is ref model 1.1 the original with the added capabilities
-// of gianduja2 meaning it features doubles messages.
+// of gianduja2 meaning it features doubles messages. (use for evo2)
 
 using namespace argos;
 

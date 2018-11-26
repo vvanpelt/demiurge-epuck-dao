@@ -5,7 +5,7 @@
 #include "RabMessageBuffer.h"
 
 // Ref model 2.3 is the new one with less entry and more abstraction, like the 1.2
-// but the gianduja2 version (two messages)
+// but the gianduja2 version (two messages) (use for gian2)
 
 using namespace argos;
 
