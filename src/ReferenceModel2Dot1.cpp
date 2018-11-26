@@ -227,13 +227,13 @@ void ReferenceModel2Dot1::SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSen
       }
     }
   }
-  m_unNumberMessagingNeighbors = 0;
+  //m_unNumberMessagingNeighbors = 0;
   for (mapIt = mapRemainingMessages.begin(); mapIt != mapRemainingMessages.end(); ++mapIt) {
     m_pcRabMessageBuffer.AddMessage((*mapIt).second);
     m_unNumberNeighbors += 1;
-    if ((*mapIt).second->Data[1] == 85) { //check data1 message of gianduja
-        m_unNumberMessagingNeighbors++;
-    }
+    // if ((*mapIt).second->Data[1] == 85) { //check data1 message of gianduja
+    //     m_unNumberMessagingNeighbors++;
+    // }
   }
   m_pcRabMessageBuffer.Update();
 }
@@ -257,7 +257,16 @@ const UInt8 ReferenceModel2Dot1::GetMessageToSend() const {
 
 UInt8 ReferenceModel2Dot1::GetNumberMessagingNeighbors(UInt8 un_message) {
 
-    return m_unNumberMessagingNeighbors;
+    CCI_EPuckRangeAndBearingSensor::TPackets sLastPackets = GetRangeAndBearingMessages();
+    CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
+    UInt8 unNumberMessagingNeighbors = 0;
+
+    for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
+        if ( ( (UInt8) (*it)->Data[0] != GetRobotIdentifier() ) && ( (UInt8) (*it)->Data[1] == un_message ) ) {
+            unNumberMessagingNeighbors+=1;
+        }
+    }
+    return unNumberMessagingNeighbors;
 }
 
 /****************************************/

@@ -137,10 +137,10 @@ class ReferenceModel2Dot1: public EpuckDAO {
      */
     UInt8 m_unNumberNeighbors;
 
-    /*
-     * The number of surrounding robots messaging.
-     */
-    UInt8 m_unNumberMessagingNeighbors;
+    // /*
+    //  * The number of surrounding robots messaging.
+    //  */
+    // UInt8 m_unNumberMessagingNeighbors;
 
     /*
      * Pointer to the range-and-bearing messages buffer.
