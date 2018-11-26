@@ -137,7 +137,7 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot1::GetNeighbor
 
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
     if ((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) {
-      sRabVectorSum += CVector2( m_unAttractionParameter / ((*it)->Range + 1) ,(*it)->Bearing.SignedNormalize());
+      sRabVectorSum += CVector2((*it)->Range ,(*it)->Bearing.SignedNormalize());
     }
   }
   //sRabVectorSum /= sRabPackets.size();
