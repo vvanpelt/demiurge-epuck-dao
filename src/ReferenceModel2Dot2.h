@@ -82,6 +82,16 @@ class ReferenceModel2Dot2: public EpuckDAO {
     CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetMessagingNeighborsCenterOfMass(UInt8 un_message);
 
     /*
+     * Getter for the vector representing the attraction force to the neighbors computed with RaB messages
+     */
+    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter);
+
+    /*
+     * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
+     */
+    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message);
+
+    /*
      * Setter for the range-and-bearing input.
      */
     void SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets);
@@ -133,6 +143,12 @@ class ReferenceModel2Dot2: public EpuckDAO {
     UInt8 m_unNumberNeighbors;
 
     /*
+     * The number of surrounding robots sending message 1 or 2.
+     */
+    UInt8 m_unNumberMessagingNeighbors1;
+    UInt8 m_unNumberMessagingNeighbors2;
+
+    /*
      * Pointer to the range-and-bearing messages buffer.
      */
     RabMessageBuffer m_pcRabMessageBuffer;
@@ -140,6 +156,8 @@ class ReferenceModel2Dot2: public EpuckDAO {
      * Type of message to send.
      */
     UInt8 m_unMessageToSend;
+
+
 };
 
 #endif

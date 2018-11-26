@@ -174,6 +174,49 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot2::GetMessagin
 /****************************************/
 /****************************************/
 
+CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot2::GetAttractionVectorToNeighbors(Real f_alpha_parameter) {
+  CCI_EPuckRangeAndBearingSensor::TPackets sRabPackets = m_pcRabMessageBuffer.GetMessages();
+  CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
+  CVector2 sRabVectorSum(0,CRadians::ZERO);
+
+  for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
+    if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f)) {
+      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
+    }
+  }
+
+  CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
+  cRaBReading.Range = sRabVectorSum.Length();
+  cRaBReading.Bearing = sRabVectorSum.Angle().SignedNormalize();
+
+  return cRaBReading;
+}
+
+/****************************************/
+/****************************************/
+
+CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot2::GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message) {
+  CCI_EPuckRangeAndBearingSensor::TPackets sRabPackets = m_pcRabMessageBuffer.GetMessages();
+  CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
+  CVector2 sRabVectorSum(0,CRadians::ZERO);
+
+  for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
+    if (((*it)->Data[0] != (UInt32) GetRobotIdentifier()) && ((*it)->Range > 0.0f) && (( (UInt8) ((*it)->Data[1])&0xF0) == un_message || ((UInt8) ((*it)->Data[1])&0x0F) == un_message ) ) {
+      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
+      //sRabVectorSum += CVector2(f_alpha_parameter/((*it)->Range + 1),(*it)->Bearing.SignedNormalize());
+    }
+  }
+
+  CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
+  cRaBReading.Range = sRabVectorSum.Length();
+  cRaBReading.Bearing = sRabVectorSum.Angle().SignedNormalize();
+
+  return cRaBReading;
+}
+
+/****************************************/
+/****************************************/
+
 std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> ReferenceModel2Dot2::GetRangeAndBearingMessages() {
   return m_pcRabMessageBuffer.GetMessages();
 }
@@ -190,14 +233,22 @@ void ReferenceModel2Dot2::SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSen
     if ((*it)->Data[0] != m_unRobotIdentifier) {
       if (mapRemainingMessages.find((*it)->Data[0]) != mapRemainingMessages.end()) {  // If ID not in map, add message.
         mapRemainingMessages[(*it)->Data[0]] = (*it);
-      } else if ((*it)->Bearing != CRadians::ZERO){  // If ID there, overwrite only if the message is valid (correct range and bearing information)
+      } else if ((*it)->Bearing != CRadians::ZERO) {  // If ID there, overwrite only if the message is valid (correct range and bearing information)
         mapRemainingMessages[(*it)->Data[0]] = (*it);
       }
     }
   }
+  m_unNumberMessagingNeighbors1 = 0;
+  m_unNumberMessagingNeighbors2 = 0;
   for (mapIt = mapRemainingMessages.begin(); mapIt != mapRemainingMessages.end(); ++mapIt) {
     m_pcRabMessageBuffer.AddMessage((*mapIt).second);
     m_unNumberNeighbors += 1;
+    if ((*mapIt).second->Data[1] == 10) { //hardcoded for now... FIXME
+        m_unNumberMessagingNeighbors1++;
+    }
+    else if ((*mapIt).second->Data[1] == 160) { //check data1 message of gianduja
+        m_unNumberMessagingNeighbors2++;
+    }
   }
   m_pcRabMessageBuffer.Update();
 }
@@ -220,22 +271,12 @@ const UInt8 ReferenceModel2Dot2::GetMessageToSend() const {
 /****************************************/
 
 UInt8 ReferenceModel2Dot2::GetNumberMessagingNeighbors(UInt8 un_message) {
-    CCI_EPuckRangeAndBearingSensor::TPackets sLastPackets = GetRangeAndBearingMessages();
-    CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
     UInt8 unNumberMessagingNeighbors = 0;
-
-    // for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
-    //     if ((*it)->Data[1] != 0) {
-    //         LOG << "mess: "<< "id:" << (*it)->Data[0] << "data:" << (*it)->Data[1] << std::endl;
-    //     }
-    // }
-
-    for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
-        if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&0xF0) == un_message || ((UInt8) ((*it)->Data[1])&0x0F) == un_message ) ) {
-            unNumberMessagingNeighbors+=1;
-        }
+    if (un_message == 10) {
+        unNumberMessagingNeighbors = m_unNumberMessagingNeighbors1;
+    } else if (un_message == 160) {
+        unNumberMessagingNeighbors = m_unNumberMessagingNeighbors2;
     }
-
     return unNumberMessagingNeighbors;
 }
 

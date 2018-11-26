@@ -159,8 +159,14 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot1::GetAttracti
 
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
     if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f)) {
-      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
+      sRabVectorSum += CVector2((f_alpha_parameter / (Real) (1 + (*it)->Range)), (*it)->Bearing.SignedNormalize());
     }
+  }
+
+  Real len = sRabVectorSum.Length();
+  if(len != 0) {
+     sRabVectorSum.Normalize(); // now, sRabVectorSum.Length = 1
+     sRabVectorSum *= (2/(1+exp(-len)) - 1);
   }
 
   CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
@@ -180,9 +186,14 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot1::GetAttracti
 
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
     if ( ((*it)->Data[0] != (UInt32) GetRobotIdentifier()) && ((*it)->Range > 0.0f) && ( (UInt8) ((*it)->Data[1]) == un_message) ) {
-      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
-      //sRabVectorSum += CVector2(f_alpha_parameter/((*it)->Range + 1),(*it)->Bearing.SignedNormalize());
+      sRabVectorSum += CVector2((f_alpha_parameter / (Real) (1 + (*it)->Range)), (*it)->Bearing.SignedNormalize());
     }
+  }
+
+  Real len = sRabVectorSum.Length();
+  if(len != 0) {
+     sRabVectorSum.Normalize(); // now, sRabVectorSum.Length = 1
+     sRabVectorSum *= (2/(1+exp(-len)) - 1);
   }
 
   CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
@@ -211,14 +222,18 @@ void ReferenceModel2Dot1::SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSen
     if ((*it)->Data[0] != m_unRobotIdentifier) {
       if (mapRemainingMessages.find((*it)->Data[0]) != mapRemainingMessages.end()) {  // If ID not in map, add message.
         mapRemainingMessages[(*it)->Data[0]] = (*it);
-      } else if ((*it)->Bearing != CRadians::ZERO){  // If ID there, overwrite only if the message is valid (correct range and bearing information)
+      } else if ((*it)->Bearing != CRadians::ZERO) {  // If ID there, overwrite only if the message is valid (correct range and bearing information)
         mapRemainingMessages[(*it)->Data[0]] = (*it);
       }
     }
   }
+  m_unNumberMessagingNeighbors = 0;
   for (mapIt = mapRemainingMessages.begin(); mapIt != mapRemainingMessages.end(); ++mapIt) {
     m_pcRabMessageBuffer.AddMessage((*mapIt).second);
     m_unNumberNeighbors += 1;
+    if ((*mapIt).second->Data[1] == 85) { //check data1 message of gianduja
+        m_unNumberMessagingNeighbors++;
+    }
   }
   m_pcRabMessageBuffer.Update();
 }
@@ -241,23 +256,8 @@ const UInt8 ReferenceModel2Dot1::GetMessageToSend() const {
 /****************************************/
 
 UInt8 ReferenceModel2Dot1::GetNumberMessagingNeighbors(UInt8 un_message) {
-    CCI_EPuckRangeAndBearingSensor::TPackets sLastPackets = GetRangeAndBearingMessages();
-    CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
-    UInt8 unNumberMessagingNeighbors = 0;
 
-    // for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
-    //     if ((*it)->Data[1] != 0) {
-    //         LOG << "mess: "<< "id:" << (*it)->Data[0] << "data:" << (*it)->Data[1] << std::endl;
-    //     }
-    // }
-
-    for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
-        if ( ( (UInt8) (*it)->Data[0] != GetRobotIdentifier() ) && ( (UInt8) (*it)->Data[1] == un_message ) ) {
-            unNumberMessagingNeighbors+=1;
-        }
-    }
-
-    return unNumberMessagingNeighbors;
+    return m_unNumberMessagingNeighbors;
 }
 
 /****************************************/
