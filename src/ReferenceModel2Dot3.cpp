@@ -146,12 +146,12 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot3::GetAttracti
   CCI_EPuckRangeAndBearingSensor::TPackets::iterator it;
   CVector2 sRabVectorSum(0,CRadians::ZERO);
 
-  for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
-    if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f)) {
-      //sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
-      sRabVectorSum += CVector2(f_alpha_parameter / ((*it)->Range + 1),(*it)->Bearing.SignedNormalize());
+    for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
+      if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f)) {
+        sRabVectorSum += CVector2((f_alpha_parameter / (Real) (1 + (*it)->Range)), (*it)->Bearing.SignedNormalize());
+      }
     }
-  }
+ 
 
   CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
   cRaBReading.Range = sRabVectorSum.Length();
