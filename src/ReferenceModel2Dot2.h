@@ -72,16 +72,6 @@ class ReferenceModel2Dot2: public EpuckDAO {
     std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() ;
 
     /*
-     * Getter for the center of mass of neighbors computed with RaB messages
-     */
-    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass();
-
-    /*
-     * Getter for the center of mass of messaging neighbors computed with RaB messages
-     */
-    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetMessagingNeighborsCenterOfMass(UInt8 un_message);
-
-    /*
      * Getter for the vector representing the attraction force to the neighbors computed with RaB messages
      */
     CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter);
