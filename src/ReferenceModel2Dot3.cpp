@@ -243,7 +243,7 @@ UInt8 ReferenceModel2Dot3::GetNumberMessagingNeighbors(UInt8 un_message) {
     // }
 
     for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
-        if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && ((UInt8) (*it)->Data[1])) == un_message ) {
+        if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && ( (UInt8) ((*it)->Data[1]) == un_message) ) {
             unNumberMessagingNeighbors+=1;
         }
     }
