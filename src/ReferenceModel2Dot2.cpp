@@ -140,7 +140,7 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot2::GetAttracti
         sRabVectorSum += CVector2((f_alpha_parameter / (Real) (1 + (*it)->Range)), (*it)->Bearing.SignedNormalize());
       }
     }
- 
+
 
   CCI_EPuckRangeAndBearingSensor::SReceivedPacket cRaBReading;
   cRaBReading.Range = sRabVectorSum.Length();
@@ -158,7 +158,7 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel2Dot2::GetAttracti
     CVector2 sRabVectorSum(0,CRadians::ZERO);
 
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
-    if (((*it)->Data[0] != (UInt32) GetRobotIdentifier()) && ((*it)->Range > 0.0f) && (( (UInt8) ((*it)->Data[1])&0xF0) == un_message || ((UInt8) ((*it)->Data[1])&0x0F) == un_message ) ) {
+    if (((*it)->Data[0] != (UInt32) GetRobotIdentifier()) && ((*it)->Range > 0.0f) && (( (UInt8) ((*it)->Data[1])&160) == un_message || ((UInt8) ((*it)->Data[1])&10) == un_message || ((UInt8) ((*it)->Data[1])&80) == un_message ) ) {
       sRabVectorSum += CVector2(f_alpha_parameter / ((*it)->Range + 1),(*it)->Bearing.SignedNormalize());
       //sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
       //sRabVectorSum += CVector2(f_alpha_parameter/((*it)->Range + 1),(*it)->Bearing.SignedNormalize());
@@ -234,7 +234,7 @@ UInt8 ReferenceModel2Dot2::GetNumberMessagingNeighbors(UInt8 un_message) {
     UInt8 unNumberMessagingNeighbors = 0;
 
     for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
-        if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&0xF0) == un_message || ((UInt8) ((*it)->Data[1])&0x0F) == un_message ) ) {
+        if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&160) == un_message || ((UInt8) ((*it)->Data[1])&0x10) == un_message || ((UInt8) ((*it)->Data[1])&0x80) == un_message ) ) {
             unNumberMessagingNeighbors+=1;
         }
     }
