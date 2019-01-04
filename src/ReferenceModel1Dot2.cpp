@@ -147,8 +147,8 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel1Dot2::GetAttracti
   CVector2 sRabVectorSum(0,CRadians::ZERO);
 
   for (it = sRabPackets.begin(); it != sRabPackets.end(); it++) {
-    if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier()) && ((*it)->Range > 0.0f)) {
-      sRabVectorSum += CVector2(f_alpha_parameter/std::pow(((*it)->Range/100),2),(*it)->Bearing.SignedNormalize());
+    if (((*it)->Data[0] != (UInt32) EpuckDAO::GetRobotIdentifier())) {
+      sRabVectorSum += CVector2(f_alpha_parameter/(1 + (*it)->Range),(*it)->Bearing.SignedNormalize());
     }
   }
 
@@ -158,6 +158,7 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket ReferenceModel1Dot2::GetAttracti
 
   return cRaBReading;
 }
+
 
 /****************************************/
 /****************************************/

@@ -169,7 +169,8 @@ namespace argos {
 			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter) {			// RM 1.2
 				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
-
+			                    
+				
 			/*
 			 * Setter for the number of surrounding robots.
 			 */
