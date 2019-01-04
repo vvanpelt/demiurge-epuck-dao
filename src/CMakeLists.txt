@@ -9,6 +9,10 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
 		RabMessageBuffer.h
 	  ReferenceModel1Dot1.h
 	  ReferenceModel1Dot2.h
+	  ReferenceModel2Dot0.h
+	  ReferenceModel2Dot1.h
+      ReferenceModel2Dot2.h
+      ReferenceModel2Dot3.h
 	)
 
 	# Sources
@@ -17,6 +21,10 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
 		RabMessageBuffer.cpp
 	  ReferenceModel1Dot1.cpp
 	  ReferenceModel1Dot2.cpp
+	  ReferenceModel2Dot0.cpp
+	  ReferenceModel2Dot1.cpp
+      ReferenceModel2Dot2.cpp
+      ReferenceModel2Dot3.cpp
 	)
 else()
 endif(ARGOS_BUILD_FOR_SIMULATOR)

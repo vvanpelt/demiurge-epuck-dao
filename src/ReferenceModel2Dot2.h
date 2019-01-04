@@ -1,25 +1,25 @@
-#ifndef REFERENCE_MODEL_2_0_H
-#define REFERENCE_MODEL_2_0_H
+#ifndef REFERENCE_MODEL_2_2_H
+#define REFERENCE_MODEL_2_2_H
 
 #include "EpuckDAO.h"
 #include "RabMessageBuffer.h"
 
-// Ref model 2.0 is the new one with less entry and more abstraction, like the 1.2
-// but the gianduja1 version (one message) (use for gian1.x)
+// Ref model 2.2 is ref model 1.1 the original with the added capabilities
+// of gianduja2 meaning it features doubles messages. (use for evo2)
 
 using namespace argos;
 
-class ReferenceModel2Dot0: public EpuckDAO {
+class ReferenceModel2Dot2: public EpuckDAO {
   public:
     /*
      *  Class constructor.
      */
-    ReferenceModel2Dot0();
+    ReferenceModel2Dot2();
 
     /*
      * Class destructor.
      */
-    virtual ~ReferenceModel2Dot0();
+    virtual ~ReferenceModel2Dot2();
 
     /*
      * Reset function.
@@ -27,9 +27,9 @@ class ReferenceModel2Dot0: public EpuckDAO {
     virtual void Reset();
 
     /*
-     * Getter for the proximity reading.
+     * Getter for the proximity input.
      */
-    CCI_EPuckProximitySensor::SReading GetProximityReading();
+    CCI_EPuckProximitySensor::TReadings GetProximityInput() const;
 
     /*
      * Setter for the proximity input.
@@ -37,9 +37,9 @@ class ReferenceModel2Dot0: public EpuckDAO {
     void SetProximityInput(CCI_EPuckProximitySensor::TReadings s_prox_input);
 
     /*
-     * Getter for the light reading.
+     * Getter for the light input.
      */
-    CCI_EPuckLightSensor::SReading GetLightReading();
+    CCI_EPuckLightSensor::TReadings GetLightInput() const;
 
     /*
      * Setter for the light input.
@@ -49,7 +49,7 @@ class ReferenceModel2Dot0: public EpuckDAO {
     /*
      * Getter for the ground input.
      */
-    Real GetGroundReading();
+    CCI_EPuckGroundSensor::SReadings GetGroundInput();
 
     /*
      * Setter for the ground input.
@@ -132,6 +132,12 @@ class ReferenceModel2Dot0: public EpuckDAO {
      */
     UInt8 m_unNumberNeighbors;
 
+    // /*
+    //  * The number of surrounding robots sending message 1 or 2.
+    //  */
+    // UInt8 m_unNumberMessagingNeighbors1;
+    // UInt8 m_unNumberMessagingNeighbors2;
+
     /*
      * Pointer to the range-and-bearing messages buffer.
      */
@@ -140,6 +146,8 @@ class ReferenceModel2Dot0: public EpuckDAO {
      * Type of message to send.
      */
     UInt8 m_unMessageToSend;
+
+
 };
 
 #endif

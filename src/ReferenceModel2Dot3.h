@@ -1,25 +1,25 @@
-#ifndef REFERENCE_MODEL_2_0_H
-#define REFERENCE_MODEL_2_0_H
+#ifndef REFERENCE_MODEL_2_3_H
+#define REFERENCE_MODEL_2_3_H
 
 #include "EpuckDAO.h"
 #include "RabMessageBuffer.h"
 
-// Ref model 2.0 is the new one with less entry and more abstraction, like the 1.2
-// but the gianduja1 version (one message) (use for gian1.x)
+// Ref model 2.3 is the new one with less entry and more abstraction, like the 1.2
+// but the gianduja2 version (two messages) (use for gian2)
 
 using namespace argos;
 
-class ReferenceModel2Dot0: public EpuckDAO {
+class ReferenceModel2Dot3: public EpuckDAO {
   public:
     /*
      *  Class constructor.
      */
-    ReferenceModel2Dot0();
+    ReferenceModel2Dot3();
 
     /*
      * Class destructor.
      */
-    virtual ~ReferenceModel2Dot0();
+    virtual ~ReferenceModel2Dot3();
 
     /*
      * Reset function.

@@ -156,11 +156,35 @@ namespace argos {
 			};
 
 			/*
+			 * Getter for the message to send.
+			 */
+			virtual const UInt8 GetMessageToSend() const{
+				UInt8 unEmptyVariable = 0;
+				return unEmptyVariable;
+			};
+
+			/*
 			 * Getter for the range-and-bearing messages.
 			 */
 			virtual std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() {
 				std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> emptyReadings;
 				return emptyReadings;
+			};
+
+			/*
+			 * Getter for the number of messaging neighbors
+			 */
+			virtual UInt8 GetNumberMessagingNeighbors(UInt8 un_message) {
+				UInt8 unEmptyVariable = 0;
+				return unEmptyVariable;
+			};
+
+			/*
+			 * Getter for the difference of number between the messages that the robot got
+			 */
+			virtual SInt8 GetDiffMessagingNeighbors(UInt8 un_message, UInt8 un_message2) {
+				SInt8 unEmptyVariable = 0;
+				return unEmptyVariable;
 			};
 
 			/*
@@ -172,6 +196,27 @@ namespace argos {
 			                    
 				
 			/*
+			 * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
+			 */
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message) { //RM2.0
+				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			};
+
+			/*
+			 * Getter for the center of mass of neighbors computed with RaB messages
+			 */
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {
+				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			};
+
+			/*
+			 * Getter for the center of mass of messaging neighbors computed with RaB messages
+			 */
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetMessagingNeighborsCenterOfMass(UInt8 un_message) {
+				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			};
+
+			/*
 			 * Setter for the number of surrounding robots.
 			 */
 			virtual void SetNumberNeighbors(const UInt8& un_number_neighbors) {};
@@ -180,6 +225,12 @@ namespace argos {
 			 * Setter for the range-and-bearing input.
 			 */
 			virtual void SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets) {};
+
+			/*
+			 * Setter for the message to send with range and bearing
+			 */
+			virtual void SetRangeAndBearingMessageToSend(UInt8 un_message) {};
+
 
 		protected:
 			/*
