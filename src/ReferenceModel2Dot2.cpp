@@ -234,7 +234,7 @@ UInt8 ReferenceModel2Dot2::GetNumberMessagingNeighbors(UInt8 un_message) {
     UInt8 unNumberMessagingNeighbors = 0;
 
     for (it = sLastPackets.begin(); it != sLastPackets.end(); it++) {
-        if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&160) == un_message || ((UInt8) ((*it)->Data[1])&0x10) == un_message || ((UInt8) ((*it)->Data[1])&0x80) == un_message ) ) {
+        if ( (UInt8) ((*it)->Data[0] != GetRobotIdentifier()) && (( (UInt8) ((*it)->Data[1])&160) == un_message || ((UInt8) ((*it)->Data[1])&10) == un_message || ((UInt8) ((*it)->Data[1])&80) == un_message ) ) {
             unNumberMessagingNeighbors+=1;
         }
     }
