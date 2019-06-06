@@ -31,14 +31,14 @@
 #include <argos3/core/utility/math/rng.h>
 #include <argos3/core/utility/math/vector2.h>
 #include <argos3/core/utility/logging/argos_log.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_wheels_actuator.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_sensor.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_actuator.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_rgb_leds_actuator.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_proximity_sensor.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_light_sensor.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_ground_sensor.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_omnidirectional_camera_sensor.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_wheels_actuator.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_range_and_bearing_sensor.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_range_and_bearing_actuator.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_rgb_leds_actuator.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_proximity_sensor.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_light_sensor.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_ground_sensor.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_omnidirectional_camera_sensor.h>
 
 namespace argos {
 	class EpuckDAO {
@@ -99,42 +99,42 @@ namespace argos {
 			/*
 			 * Getter for the proximity input.
 			 */
-			virtual CCI_EPuckProximitySensor::TReadings GetProximityInput() const {			// RM 1.1
-				CCI_EPuckProximitySensor::TReadings emptyReadings;
+			virtual CCI_XPuckProximitySensor::TReadings GetProximityInput() const {			// RM 1.1
+				CCI_XPuckProximitySensor::TReadings emptyReadings;
 				return emptyReadings;
 			};
 
-			virtual CCI_EPuckProximitySensor::SReading GetProximityReading() {					// RM 1.2
-				return CCI_EPuckProximitySensor::SReading();
+			virtual CCI_XPuckProximitySensor::SReading GetProximityReading() {					// RM 1.2
+				return CCI_XPuckProximitySensor::SReading();
 			};
 
 			/*
 			 * Setter for the proximity input.
 			 */
-			virtual void SetProximityInput(CCI_EPuckProximitySensor::TReadings s_prox_input) {};
+			virtual void SetProximityInput(CCI_XPuckProximitySensor::TReadings s_prox_input) {};
 
 			/*
 			 * Getter for the light input.
 			 */
-			virtual CCI_EPuckLightSensor::TReadings GetLightInput() const { 		// RM 1.1
-				CCI_EPuckLightSensor::TReadings emptyReadings;
+			virtual CCI_XPuckLightSensor::TReadings GetLightInput() const { 		// RM 1.1
+				CCI_XPuckLightSensor::TReadings emptyReadings;
 				return emptyReadings;
 			};
 
-			virtual CCI_EPuckLightSensor::SReading GetLightReading() {					// RM 1.2
-				return CCI_EPuckLightSensor::SReading();
+			virtual CCI_XPuckLightSensor::SReading GetLightReading() {					// RM 1.2
+				return CCI_XPuckLightSensor::SReading();
 			};
 
 			/*
 			 * Setter for the light input.
 			 */
-			virtual void SetLightInput(CCI_EPuckLightSensor::TReadings s_light_input) {};
+			virtual void SetLightInput(CCI_XPuckLightSensor::TReadings s_light_input) {};
 
 			/*
 			 * Getter for the ground input.
 			 */
-			virtual CCI_EPuckGroundSensor::SReadings GetGroundInput() {    // RM 1.1
-				CCI_EPuckGroundSensor::SReadings emptyReadings;
+			virtual CCI_XPuckGroundSensor::SReadings GetGroundInput() {    // RM 1.1
+				CCI_XPuckGroundSensor::SReadings emptyReadings;
 				return emptyReadings;
 			};
 
@@ -145,7 +145,7 @@ namespace argos {
 			/*
 			 * Setter for the ground input.
 			 */
-			virtual void SetGroundInput(CCI_EPuckGroundSensor::SReadings s_ground_input) {};
+			virtual void SetGroundInput(CCI_XPuckGroundSensor::SReadings s_ground_input) {};
 
 			/*
 			 * Getter for the number of surrounding robots.
@@ -166,8 +166,8 @@ namespace argos {
 			/*
 			 * Getter for the range-and-bearing messages.
 			 */
-			virtual std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() {
-				std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> emptyReadings;
+			virtual std::vector<CCI_XPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() {
+				std::vector<CCI_XPuckRangeAndBearingSensor::SReceivedPacket*> emptyReadings;
 				return emptyReadings;
 			};
 
@@ -190,30 +190,30 @@ namespace argos {
 			/*
 			 * Getter for attraction force to the neighbors computed with RaB messages
 			 */
-			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter) {			// RM 1.2
-				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			virtual CCI_XPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter) {			// RM 1.2
+				return CCI_XPuckRangeAndBearingSensor::SReceivedPacket();
 			};
-			                    
-				
+
+
 			/*
 			 * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
 			 */
-			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message) { //RM2.0
-				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			virtual CCI_XPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message) { //RM2.0
+				return CCI_XPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
 			/*
 			 * Getter for the center of mass of neighbors computed with RaB messages
 			 */
-			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {
-				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			virtual CCI_XPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass() {
+				return CCI_XPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
 			/*
 			 * Getter for the center of mass of messaging neighbors computed with RaB messages
 			 */
-			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetMessagingNeighborsCenterOfMass(UInt8 un_message) {
-				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			virtual CCI_XPuckRangeAndBearingSensor::SReceivedPacket GetMessagingNeighborsCenterOfMass(UInt8 un_message) {
+				return CCI_XPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
 			/*
@@ -224,7 +224,7 @@ namespace argos {
 			/*
 			 * Setter for the range-and-bearing input.
 			 */
-			virtual void SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets) {};
+			virtual void SetRangeAndBearingMessages(CCI_XPuckRangeAndBearingSensor::TPackets s_packets) {};
 
 			/*
 			 * Setter for the message to send with range and bearing

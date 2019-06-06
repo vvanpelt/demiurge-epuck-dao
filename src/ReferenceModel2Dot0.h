@@ -29,22 +29,22 @@ class ReferenceModel2Dot0: public EpuckDAO {
     /*
      * Getter for the proximity reading.
      */
-    CCI_EPuckProximitySensor::SReading GetProximityReading();
+    CCI_XPuckProximitySensor::SReading GetProximityReading();
 
     /*
      * Setter for the proximity input.
      */
-    void SetProximityInput(CCI_EPuckProximitySensor::TReadings s_prox_input);
+    void SetProximityInput(CCI_XPuckProximitySensor::TReadings s_prox_input);
 
     /*
      * Getter for the light reading.
      */
-    CCI_EPuckLightSensor::SReading GetLightReading();
+    CCI_XPuckLightSensor::SReading GetLightReading();
 
     /*
      * Setter for the light input.
      */
-    void SetLightInput(CCI_EPuckLightSensor::TReadings s_light_input);
+    void SetLightInput(CCI_XPuckLightSensor::TReadings s_light_input);
 
     /*
      * Getter for the ground input.
@@ -54,7 +54,7 @@ class ReferenceModel2Dot0: public EpuckDAO {
     /*
      * Setter for the ground input.
      */
-    void SetGroundInput(CCI_EPuckGroundSensor::SReadings s_ground_input);
+    void SetGroundInput(CCI_XPuckGroundSensor::SReadings s_ground_input);
 
     /*
      * Getter for the number of surrounding robots.
@@ -69,22 +69,22 @@ class ReferenceModel2Dot0: public EpuckDAO {
     /*
      * Getter for the range-and-bearing input.
      */
-    std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() ;
+    std::vector<CCI_XPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() ;
 
     /*
      * Getter for the vector representing the attraction force to the neighbors computed with RaB messages
      */
-    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter);
+    CCI_XPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter);
 
     /*
      * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
      */
-    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message);
+    CCI_XPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToMessagingNeighbors(Real f_alpha_parameter, UInt8 un_message);
 
     /*
      * Setter for the range-and-bearing input.
      */
-    void SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets);
+    void SetRangeAndBearingMessages(CCI_XPuckRangeAndBearingSensor::TPackets s_packets);
 
     /*
      * Getter for the message to send.
@@ -110,22 +110,22 @@ class ReferenceModel2Dot0: public EpuckDAO {
     /*
      * The proximity sensors input.
      */
-    CCI_EPuckProximitySensor::TReadings m_sProximityInput;
+    CCI_XPuckProximitySensor::TReadings m_sProximityInput;
 
     /*
      * The light sensors input.
      */
-    CCI_EPuckLightSensor::TReadings m_sLightInput;
+    CCI_XPuckLightSensor::TReadings m_sLightInput;
 
     /*
      * The ground sensors input.
      */
-    std::deque<CCI_EPuckGroundSensor::SReadings> m_deqGroundInput;
+    std::deque<CCI_XPuckGroundSensor::SReadings> m_deqGroundInput;
 
     /*
      * The ground sensors input.
      */
-    CCI_EPuckGroundSensor::SReadings m_sGroundInput;
+    CCI_XPuckGroundSensor::SReadings m_sGroundInput;
 
     /*
      * The number of surrounding robots.

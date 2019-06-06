@@ -41,16 +41,16 @@ namespace argos {
   /****************************************/
 	/****************************************/
 
-  void RabMessageBuffer::AddMessage(CCI_EPuckRangeAndBearingSensor::SReceivedPacket* c_packet) {
+  void RabMessageBuffer::AddMessage(CCI_XPuckRangeAndBearingSensor::SReceivedPacket* c_packet) {
     m_vecBufferElements.push_back(std::make_pair(*c_packet, m_unCurrentTime));
   }
 
   /****************************************/
   /****************************************/
 
-  std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> RabMessageBuffer::GetMessages(){
-    std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> vecRabMessages;
-    std::vector<std::pair<CCI_EPuckRangeAndBearingSensor::SReceivedPacket, UInt32> >::iterator it;
+  std::vector<CCI_XPuckRangeAndBearingSensor::SReceivedPacket*> RabMessageBuffer::GetMessages(){
+    std::vector<CCI_XPuckRangeAndBearingSensor::SReceivedPacket*> vecRabMessages;
+    std::vector<std::pair<CCI_XPuckRangeAndBearingSensor::SReceivedPacket, UInt32> >::iterator it;
     for (it = m_vecBufferElements.begin(); it != m_vecBufferElements.end(); it++) {
       vecRabMessages.push_back(&(*it).first);
     }

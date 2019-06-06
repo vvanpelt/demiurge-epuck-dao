@@ -26,32 +26,32 @@ class ReferenceModel1Dot1: public EpuckDAO {
     /*
      * Getter for the proximity input.
      */
-    CCI_EPuckProximitySensor::TReadings GetProximityInput() const;
+    CCI_XPuckProximitySensor::TReadings GetProximityInput() const;
 
     /*
      * Setter for the proximity input.
      */
-    void SetProximityInput(CCI_EPuckProximitySensor::TReadings s_prox_input);
+    void SetProximityInput(CCI_XPuckProximitySensor::TReadings s_prox_input);
 
     /*
      * Getter for the light input.
      */
-    CCI_EPuckLightSensor::TReadings GetLightInput() const;
+    CCI_XPuckLightSensor::TReadings GetLightInput() const;
 
     /*
      * Setter for the light input.
      */
-    void SetLightInput(CCI_EPuckLightSensor::TReadings s_light_input);
+    void SetLightInput(CCI_XPuckLightSensor::TReadings s_light_input);
 
     /*
      * Getter for the ground input.
      */
-    CCI_EPuckGroundSensor::SReadings GetGroundInput();
+    CCI_XPuckGroundSensor::SReadings GetGroundInput();
 
     /*
      * Setter for the ground input.
      */
-    void SetGroundInput(CCI_EPuckGroundSensor::SReadings s_ground_input);
+    void SetGroundInput(CCI_XPuckGroundSensor::SReadings s_ground_input);
 
     /*
      * Getter for the number of surrounding robots.
@@ -66,39 +66,39 @@ class ReferenceModel1Dot1: public EpuckDAO {
     /*
      * Getter for the range-and-bearing input.
      */
-    std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() ;
+    std::vector<CCI_XPuckRangeAndBearingSensor::SReceivedPacket*> GetRangeAndBearingMessages() ;
 
     /*
      * Getter for the center of mass of neighbors computed with RaB messages
      */
-    CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass();
+    CCI_XPuckRangeAndBearingSensor::SReceivedPacket GetNeighborsCenterOfMass();
 
     /*
      * Setter for the range-and-bearing input.
      */
-    void SetRangeAndBearingMessages(CCI_EPuckRangeAndBearingSensor::TPackets s_packets);
+    void SetRangeAndBearingMessages(CCI_XPuckRangeAndBearingSensor::TPackets s_packets);
 
 
   private:
     /*
      * The proximity sensors input.
      */
-    CCI_EPuckProximitySensor::TReadings m_sProximityInput;
+    CCI_XPuckProximitySensor::TReadings m_sProximityInput;
 
     /*
      * The light sensors input.
      */
-    CCI_EPuckLightSensor::TReadings m_sLightInput;
+    CCI_XPuckLightSensor::TReadings m_sLightInput;
 
     /*
      * The ground sensors input.
      */
-    std::deque<CCI_EPuckGroundSensor::SReadings> m_deqGroundInput;
+    std::deque<CCI_XPuckGroundSensor::SReadings> m_deqGroundInput;
 
     /*
      * The ground sensors input.
      */
-    CCI_EPuckGroundSensor::SReadings m_sGroundInput;
+    CCI_XPuckGroundSensor::SReadings m_sGroundInput;
 
     /*
      * The number of surrounding robots.

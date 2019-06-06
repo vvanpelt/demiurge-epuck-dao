@@ -11,7 +11,7 @@
 #include <algorithm>
 #include <argos3/core/utility/logging/argos_log.h>
 #include <argos3/core/utility/datatypes/datatypes.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_sensor.h>
+#include <argos3/plugins/robots/x-puck/control_interface/ci_xpuck_range_and_bearing_sensor.h>
 
 namespace argos {
   class RabMessageBuffer {
@@ -39,12 +39,12 @@ namespace argos {
       /*
 			 * Add a range-and-bearing message to the buffer.
        */
-      void AddMessage(CCI_EPuckRangeAndBearingSensor::SReceivedPacket* c_packet);
+      void AddMessage(CCI_XPuckRangeAndBearingSensor::SReceivedPacket* c_packet);
 
       /*
 			 * Returns all range-and-bearing messages of the buffer.
        */
-      std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> GetMessages();
+      std::vector<CCI_XPuckRangeAndBearingSensor::SReceivedPacket*> GetMessages();
 
       /*
 			 * Clears the content of the buffer.
@@ -66,7 +66,7 @@ namespace argos {
       /*
 			 * List of pairs <range-and-bearing message, timestamp>. Represents the buffer.
        */
-      std::vector<std::pair<CCI_EPuckRangeAndBearingSensor::SReceivedPacket, UInt32> > m_vecBufferElements;
+      std::vector<std::pair<CCI_XPuckRangeAndBearingSensor::SReceivedPacket, UInt32> > m_vecBufferElements;
   };
 }
 

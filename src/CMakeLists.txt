@@ -31,13 +31,13 @@ endif(ARGOS_BUILD_FOR_SIMULATOR)
 
 
 add_library(argos3_demiurge_epuck_dao SHARED ${HEADERS} ${SOURCES} )
-target_link_libraries(argos3_demiurge_epuck_dao argos3plugin_${ARGOS_BUILD_FOR}_epuck)
+target_link_libraries(argos3_demiurge_epuck_dao argos3plugin_${ARGOS_BUILD_FOR}_xpuck)
 
 install(
   FILES ${HEADERS}
   DESTINATION include/argos3/demiurge/epuck-dao)
 
-# Install location for the e-puck plugin
+# Install location for the x-puck plugin
 install(TARGETS argos3_demiurge_epuck_dao
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib/argos3
