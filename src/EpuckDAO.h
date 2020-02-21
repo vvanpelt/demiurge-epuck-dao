@@ -231,6 +231,32 @@ namespace argos {
 			 */
 			virtual void SetRangeAndBearingMessageToSend(UInt8 un_message) {};
 
+            /*
+             * Getter for the camera input.
+             */
+            virtual CCI_EPuckOmnidirectionalCameraSensor::SReadings GetCameraInput() const {
+                CCI_EPuckOmnidirectionalCameraSensor::SReadings emptyReadings;
+                return emptyReadings;
+            }
+
+            /*
+             * Setter for the camera input.
+             */
+            virtual void SetCameraInput(CCI_EPuckOmnidirectionalCameraSensor::SReadings s_cam_input) {};
+
+            /*
+             * Setter for the RGB LEDs color.
+             */
+            virtual void SetLEDsColor(const CColor& c_color) {};
+
+            /*
+             * Getter for the RGB LEDs color.
+             */
+            virtual const CColor& GetLEDsColor() const {
+                CColor& ccEmptyVariable = CColor::BLACK;
+                return ccEmptyVariable;
+
+            }
 
 		protected:
 			/*
