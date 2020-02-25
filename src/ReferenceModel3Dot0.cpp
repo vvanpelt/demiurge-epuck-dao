@@ -10,6 +10,7 @@ ReferenceModel3Dot0::ReferenceModel3Dot0() {
   m_fMaxVelocity = 12;
   m_fLeftWheelVelocity = 0;
   m_fRightWheelVelocity = 0;
+  m_bGroundLEDsState = 0;
 }
 
 /****************************************/
@@ -217,4 +218,18 @@ void ReferenceModel3Dot0::SetLEDsColor(const CColor& c_color) {
 
 const CColor& ReferenceModel3Dot0::GetLEDsColor() const {
     return m_cLEDsColor;
+}
+
+/****************************************/
+/****************************************/
+
+void ReferenceModel3Dot0::SetGroundLEDsState(size_t b_state) {
+    m_bGroundLEDsState = b_state;
+}
+
+/****************************************/
+/****************************************/
+
+size_t ReferenceModel3Dot0::GetGroundLEDsState() {
+    return m_bGroundLEDsState;
 }

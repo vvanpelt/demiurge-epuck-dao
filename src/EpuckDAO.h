@@ -35,6 +35,7 @@
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_sensor.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_actuator.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_rgb_leds_actuator.h>
+#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_ground_leds_actuator.h> 
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_proximity_sensor.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_light_sensor.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_ground_sensor.h>
@@ -255,7 +256,19 @@ namespace argos {
             virtual const CColor& GetLEDsColor() const {
                 CColor& ccEmptyVariable = CColor::BLACK;
                 return ccEmptyVariable;
+            }
+            
+            /*
+             * Setter for the ground LEDs.
+             */
+            virtual void SetGroundLEDsState(size_t b_state) {};
 
+            /*
+             * Getter for the ground LEDs.
+             */
+            virtual size_t GetGroundLEDsState() {
+                size_t ccEmptyVariable = 0;
+                return ccEmptyVariable;
             }
 
 		protected:

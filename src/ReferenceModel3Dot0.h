@@ -97,6 +97,16 @@ class ReferenceModel3Dot0: public EpuckDAO {
      * Getter for the RGB LEDs color.
      */
     const CColor& GetLEDsColor() const;
+    
+    /*
+     * Setter for the ground LEDs color.
+     */
+    void SetGroundLEDsState(size_t b_state);
+
+    /*
+     * Getter for the ground LEDs color.
+     */
+    size_t GetGroundLEDsState();
 
 
   private:
@@ -139,6 +149,11 @@ class ReferenceModel3Dot0: public EpuckDAO {
      * The color of RGB LEDs  (output variable).
      */
     CColor m_cLEDsColor;
+    
+    /*
+     * The state of the ground LEDs  (output variable).
+     */
+    size_t m_bGroundLEDsState;
 
 };
 

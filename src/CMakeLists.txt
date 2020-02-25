@@ -1,4 +1,4 @@
-if(ARGOS_BUILD_FOR_SIMULATOR)
+#if(ARGOS_BUILD_FOR_SIMULATOR)
 	# Set up ARGoS compilation information
 	include_directories(${CMAKE_SOURCE_DIR} ${ARGOS_INCLUDE_DIRS})
 	link_directories(${ARGOS_LIBRARY_DIRS})
@@ -28,8 +28,8 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
       ReferenceModel2Dot3.cpp
       ReferenceModel3Dot0.cpp
 	)
-else()
-endif(ARGOS_BUILD_FOR_SIMULATOR)
+#else()
+#endif(ARGOS_BUILD_FOR_SIMULATOR)
 
 
 add_library(argos3_demiurge_epuck_dao SHARED ${HEADERS} ${SOURCES} )
