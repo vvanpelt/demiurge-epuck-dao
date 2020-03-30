@@ -35,7 +35,7 @@
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_sensor.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_actuator.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_rgb_leds_actuator.h>
-#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_ground_leds_actuator.h> 
+#include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_ground_leds_actuator.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_proximity_sensor.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_light_sensor.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_ground_sensor.h>
@@ -194,8 +194,8 @@ namespace argos {
 			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToNeighbors(Real f_alpha_parameter) {			// RM 1.2
 				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
-			                    
-				
+
+
 			/*
 			 * Getter for the vector representing the attraction force to the neighbors that are sending a message computed with RaB messages
 			 */
@@ -257,7 +257,7 @@ namespace argos {
                 CColor& ccEmptyVariable = CColor::BLACK;
                 return ccEmptyVariable;
             }
-            
+
             /*
              * Setter for the ground LEDs.
              */
@@ -270,6 +270,20 @@ namespace argos {
                 size_t ccEmptyVariable = 0;
                 return ccEmptyVariable;
             }
+
+						/*
+						 * Setter for the ground LEDs' PWM.
+						 */
+						virtual void SetGroundLEDsPWM(UInt8 un_pwm) {};
+
+						/*
+						 * Getter for the ground LEDs' PWM.
+						 */
+						virtual UInt8 GetGroundLEDsPWM() {
+								UInt8 ccEmptyVariable = 0;
+								return ccEmptyVariable;
+						}
+
 
 		protected:
 			/*

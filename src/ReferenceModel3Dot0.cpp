@@ -11,6 +11,7 @@ ReferenceModel3Dot0::ReferenceModel3Dot0() {
   m_fLeftWheelVelocity = 0;
   m_fRightWheelVelocity = 0;
   m_bGroundLEDsState = 0;
+  m_unGroundLEDsPWM = 0;
 }
 
 /****************************************/
@@ -232,4 +233,17 @@ void ReferenceModel3Dot0::SetGroundLEDsState(size_t b_state) {
 
 size_t ReferenceModel3Dot0::GetGroundLEDsState() {
     return m_bGroundLEDsState;
+}
+
+/****************************************/
+/****************************************/
+
+void ReferenceModel3Dot0::SetGroundLEDsPWM(UInt8 un_pwm) {
+    m_unGroundLEDsPWM = un_pwm;
+}
+
+/****************************************/
+/****************************************/
+UInt8 ReferenceModel3Dot0::GetGroundLEDsPWM() {
+    return m_unGroundLEDsPWM;
 }
