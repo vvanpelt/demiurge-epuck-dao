@@ -108,16 +108,6 @@ class ReferenceModel3Dot0: public EpuckDAO {
      */
     size_t GetGroundLEDsState();
 
-    /*
-     * Setter for the ground LEDs' PWM.
-     */
-    void SetGroundLEDsPWM(UInt8 un_pwm);
-
-    /*
-     * Getter for the ground LEDs' PWM.
-     */
-    UInt8 GetGroundLEDsPWM();
-
 
   private:
     /*
@@ -164,11 +154,6 @@ class ReferenceModel3Dot0: public EpuckDAO {
      * The state of the ground LEDs  (output variable).
      */
     size_t m_bGroundLEDsState;
-
-    /*
-     * The PWM of the ground LEDs  (output variable).
-     */
-    UInt8 m_unGroundLEDsPWM;
 
 };
 

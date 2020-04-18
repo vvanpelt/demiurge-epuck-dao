@@ -11,7 +11,6 @@ ReferenceModel3Dot0::ReferenceModel3Dot0() {
   m_fLeftWheelVelocity = 0;
   m_fRightWheelVelocity = 0;
   m_bGroundLEDsState = 0;
-  m_unGroundLEDsPWM = 0;
 }
 
 /****************************************/
@@ -83,7 +82,7 @@ Real ReferenceModel3Dot0::GetGroundReading() {
   std::deque<CCI_EPuckGroundSensor::SReadings>::iterator it;
   UInt32 unBlackWhiteCounter[2] = {0,0};  //unBlackWhiteCounter[0] -> Black; unBlackWhiteCounter[1] -> White.
   //float fBlackThreshold = 0.03;
-  float fBlackThreshold = 0.45;
+  float fBlackThreshold = 0.08;
   float fWhiteThreshold = 0.85;
   for (it = m_deqGroundInput.begin(); it != m_deqGroundInput.end(); it++) {
     if (it->Left < fBlackThreshold) {
@@ -234,17 +233,4 @@ void ReferenceModel3Dot0::SetGroundLEDsState(size_t b_state) {
 
 size_t ReferenceModel3Dot0::GetGroundLEDsState() {
     return m_bGroundLEDsState;
-}
-
-/****************************************/
-/****************************************/
-
-void ReferenceModel3Dot0::SetGroundLEDsPWM(UInt8 un_pwm) {
-    m_unGroundLEDsPWM = un_pwm;
-}
-
-/****************************************/
-/****************************************/
-UInt8 ReferenceModel3Dot0::GetGroundLEDsPWM() {
-    return m_unGroundLEDsPWM;
 }
