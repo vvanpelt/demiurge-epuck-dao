@@ -187,6 +187,24 @@ namespace argos {
 				return unEmptyVariable;
 			};
 
+            /*
+             * Set the signal to send with this robot
+             */
+            virtual void SetSignalToSend(UInt8 signal) {}
+
+            /*
+             * Get the signal to send as a RaB packet
+             */
+            virtual void GetRangeAndBearingSignalToSend(CCI_EPuckRangeAndBearingActuator::TData& data) {}
+
+            /*
+             * Getter for the number of neighbors that have send a signal that
+             * match with the one passed as argument
+             */
+            virtual UInt32 GetNumberSignalMatchingNeighbors(UInt8 signal) {
+                return 0;
+            }
+
 			/*
 			 * Getter for attraction force to the neighbors computed with RaB messages
 			 */
@@ -202,6 +220,14 @@ namespace argos {
 				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
+            /*
+             * Getter for attraction force to the neighbors that are sending a
+             * signal matching with the one passed as argument
+             */
+            virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetAttractionVectorToSignalMatchingNeighbors(Real f_alpha_parameter, UInt8 signal) {
+                return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+            }
+
 			/*
 			 * Getter for the center of mass of neighbors computed with RaB messages
 			 */
@@ -213,6 +239,14 @@ namespace argos {
 			 * Getter for the center of mass of messaging neighbors computed with RaB messages
 			 */
 			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetMessagingNeighborsCenterOfMass(UInt8 un_message) {
+				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
+			};
+
+			/*
+             * Getter for center of mass of the neighbors that are sending a
+             * signal matching with the one passed as argument
+			 */
+			virtual CCI_EPuckRangeAndBearingSensor::SReceivedPacket GetSignalMatchingNeighborsCenterOfMass(UInt8 signal) {
 				return CCI_EPuckRangeAndBearingSensor::SReceivedPacket();
 			};
 
