@@ -214,10 +214,11 @@ void ReferenceModelBtModules::GetRangeAndBearingSignalToSend(CCI_EPuckRangeAndBe
 
 UInt32 ReferenceModelBtModules::GetNumberSignalMatchingNeighbors(UInt8 signal)
 {
-    auto packets = m_pcRabMessageBuffer.GetMessages();
+    typedef std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> Packets;
+    Packets packets = m_pcRabMessageBuffer.GetMessages();
     UInt8 count = 0;
 
-    for (auto it = packets.begin(); it != packets.end(); ++it) {
+    for (Packets::iterator it = packets.begin(); it != packets.end(); ++it) {
         bool is_not_me = (*it)->Data[0] != EpuckDAO::GetRobotIdentifier();
         bool signal_match = TestSignalMatch((*it)->Data, signal);
 
@@ -235,11 +236,12 @@ UInt32 ReferenceModelBtModules::GetNumberSignalMatchingNeighbors(UInt8 signal)
 CCI_EPuckRangeAndBearingSensor::SReceivedPacket
     ReferenceModelBtModules::GetAttractionVectorToSignalMatchingNeighbors(Real f_alpha_parameter, UInt8 signal)
 {
-    auto packets = m_pcRabMessageBuffer.GetMessages();
+    typedef std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> Packets;
+    Packets packets = m_pcRabMessageBuffer.GetMessages();
 
     CVector2 vector_sum(0, CRadians::ZERO);
 
-    for (auto it = packets.begin(); it != packets.end(); it++) {
+    for (Packets::iterator it = packets.begin(); it != packets.end(); it++) {
         bool is_not_me = (*it)->Data[0] != EpuckDAO::GetRobotIdentifier();
         bool signal_match = TestSignalMatch((*it)->Data, signal);
 
@@ -263,11 +265,12 @@ CCI_EPuckRangeAndBearingSensor::SReceivedPacket
 CCI_EPuckRangeAndBearingSensor::SReceivedPacket
     ReferenceModelBtModules::GetSignalMatchingNeighborsCenterOfMass(UInt8 signal)
 {
-    auto packets = m_pcRabMessageBuffer.GetMessages();
+    typedef std::vector<CCI_EPuckRangeAndBearingSensor::SReceivedPacket*> Packets;
+    Packets packets = m_pcRabMessageBuffer.GetMessages();
 
     CVector2 vector_sum(0, CRadians::ZERO);
 
-    for (auto it = packets.begin(); it != packets.end(); it++) {
+    for (Packets::iterator it = packets.begin(); it != packets.end(); it++) {
         bool is_not_me = (*it)->Data[0] != EpuckDAO::GetRobotIdentifier();
         bool signal_match = TestSignalMatch((*it)->Data, signal);
 
